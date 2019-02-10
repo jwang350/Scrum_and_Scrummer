@@ -1,0 +1,52 @@
+<!-- Tommy: I worked on this 11:45 to 12:30. Also used inline formatting cuz I don't wanna upload 2 docs-->
+
+<!--HTML STARTS HERE-->
+<h1>Shopping List</h1>
+<h7>The following populates from javascript array</h7>
+<div id="mainList">
+  
+</div>
+
+<form>
+  Item: <input type="text" name="item" id="newItem"><br>
+  <input type="submit" value="Submit" id="submitBtn">
+</form>
+
+
+
+<!-- JAVASCRIPT STARTS HERE-->
+<script>
+var mainListArr = [];
+// dummy data
+mainListArr.push("Chicken Milk", "Cow Eggs");
+
+function makeUL(array) {
+    // Create the list element:
+    var list = document.createElement('ul');
+
+    for (var i = 0; i < array.length; i++) {
+        // Create the list item:
+        var item = document.createElement('li');
+
+        // Set its contents:
+        item.appendChild(document.createTextNode(mainListArr[i]));
+
+        // Add it to the list:
+        list.appendChild(item);
+    }
+
+    // Finally, return the constructed list:
+    return list;
+}
+
+// Add the contents of mainListArr to #mainList:
+document.getElementById('mainList').appendChild(makeUL(mainListArr));
+
+function addItem(){
+  var newItem = document.getElementById('newItem').value;
+  // document.getElementById('mainList').appendChild(makeUL(newItem));
+  // alert(newItem);
+}
+
+document.getElementById("submitBtn").onclick = addItem();
+</script>
