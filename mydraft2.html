@@ -104,6 +104,12 @@
                       }
               }
             
+            var delButtons = document.getElementByClassName("delete");
+            for (i = 0; i < closebtns.length; i++) {
+                delButtons[i].addEventListener("click", function() {
+                this.parentElement.style.display = 'none';
+            });
+            
         </script>
         
     </body>
