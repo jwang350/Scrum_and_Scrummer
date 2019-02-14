@@ -45,14 +45,39 @@ button
   	padding: 		10px;
 }
 
-input 
+input
 {
-    background-color: 		transparent;
-    border: 			0px solid;
+	background-color: transparent;
+	border: 0px solid;
+}
+
+* 
+{
+	box-sizing: border-box;
 }
 
 ul
 {
 	/* removes bullets from list */
 	list-style-type: none;
+	padding: 0;
+	margin: 0;
 }
+
+ul li
+{
+	border: 1px solid #ddd;
+	margin-top: -1px;
+	background-color: #f6f6f6;
+	padding: 12px;
+	text-decoration: none;
+	color: black;
+	display: block;
+	position: relative;
+}
+
+ul li:hover {
+	background-color: #eee;
+}
+
+
