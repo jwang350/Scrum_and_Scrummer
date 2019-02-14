@@ -3,7 +3,7 @@ html, body
 	display: flex;
 	flex-direction: column;
 	width: 100%;
-	margin: 0px;
+	margin: 5px;
 	padding: 0px;
 	overflow: hidden;
 	font-family: 'Century Gothic';
@@ -16,32 +16,39 @@ body
 
 button 
 {
-	border: 1px solid gray;
-	border-radius: 25px;
-	background-color: #9ACD32;
-	color: white;
+	border: 		1px solid gray;
+	border-radius: 		25px;
+	background-color: 	#9ACD32;
+	color: 			white;
 }
 
 #inputTable
 {
-	background-color: white;
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	border: 1px solid gray;
-	border-radius: 25px;
-	padding-left: 10px;
-	padding-right: 10px;
+	background-color: 	white;
+	display: 		flex;
+	flex-direction: 	row;
+	align-items: 		center;
+	border: 		1px solid gray;
+	border-radius: 		25px;
+	padding-left: 		10px;
+	padding-right: 		10px;
 }
 .center 
 {
-	margin: 	auto;
-	display: 	table;
+	margin: 		auto;
+	display: 		table;
 }
 
 #main
 {
-	width: 200px;
-  	padding: 10px;
+	width: 			200px;
+  	padding: 		10px;
 }
+
+input 
+{
+    background-color: 		transparent;
+    border: 			0px solid;
+}
+
 
