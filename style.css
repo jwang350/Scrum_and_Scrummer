@@ -20,6 +20,10 @@ button
 	border-radius: 		25px;
 	background-color: 	#9ACD32;
 	color: 			white;
+	margin: 		5px;
+	width: 			60px;
+	height: 		30px;
+	font-size: 		15px;
 }
 
 #inputTable
