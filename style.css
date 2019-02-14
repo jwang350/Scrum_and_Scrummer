@@ -1,0 +1,21 @@
+html, body {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	margin: 0px;
+	padding: 0px;
+	overflow: hidden;
+	font-family: 'Century Gothic';
+}
+
+body {
+	height: 100%;
+}
+
+button {
+	border: 1px solid gray;
+	border-radius: 25px;
+	background-color: #9ACD32;
+	color: white;
+}
+
