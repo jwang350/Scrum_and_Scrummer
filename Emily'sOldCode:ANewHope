@@ -1,0 +1,195 @@
+//connect to our Astra database
+        
+        var db_server   = "sql.wpc-is.online";  // mySQL server
+        var db_username = "ejbeck1";                // login name
+        var db_password = "ejbe5649";       // login password 
+        var db_table    = "db_test_ejbeck1"; 
+       
+         
+        var finishButton = document.getElementById('finishProfileButtonId');
+        var homeButton = document.getElementById('homeButtonId');
+        var myEventsButton = document.getElementById('myEventsButtonId');
+        var signInButton = document.getElementById('signInId');
+        var eventOne = document.getElementById('eventOneId');
+
+        finishButton.addEventListener('click', startTask1);
+        homeButton.addEventListener('click', startTask2);
+        myEventsButton.addEventListener('click', startTask3);
+
+
+      
+//this function inserts a new User into the Astra database
+function startTask1() {
+
+    
+    console.log("step1");
+    console.log("setting variables");
+    setInsertVariables();
+    
+    var insertStmt = "Insert into User" + "(asuriteID, phoneNumber, organization) values('" + asurite + "'," + "'" + number + "'," + "'" + organization + "'" + ");";
+    console.log(insertStmt);
+
+        MySql.Execute(db_server, db_username, db_password, db_table, insertStmt,  function(data) {
+        
+        console.log("step1");
+        console.log(data);
+        if (!data.Success) {
+            if (data.Error == 'Cannot find table 0.') {
+                // we call it true anyway - see comments at top
+                // and enable the next step
+                console.log("Insert successful");
+                // do next step - hint showTab(next step)
+            } else 
+                alert(data.Error)
+            } else {
+                console.log("success");
+            }
+        }
+    );
+    
+}
+
+//this function creates and inserts a new event into the Astra database
+function startTask2() {
+    console.log("Creating a new event");
+    setBookRoomVariables();
+    var newEventStmt = "insert into Event" + "(name, organization, type, attendeeAmount, highProfile, fee, description, eventDate, startTime, endTime, campus, building, room, asuriteID) values('" + eventName + "'," + "'" + organization + "'," + "'" + eventType + "'," + "'" + numAttendees + "'," + "'" + highProfile + "'," + "'" + fee + "'," + "'" + description + "'," + "'" + eventDate + "'," + "'" + startTime + "'," + "'" + endTime + "'," + "'" + campus + "'," + "'" + building + "'," + "'" + room + "'," + "'" + asurite + "'" + ");";
+    console.log(newEventStmt);
+    MySql.Execute(db_server, db_username, db_password, db_table, newEventStmt, function(data) {
+        console.log("step1");
+        console.log(data);
+        if (!data.Success) {
+            if (data.Error == 'Cannot find table 0.') {
+                // we call it true anyway - see comments at top
+                // and enable the next step
+                console.log("Insert successful");
+                // do next step - hint showTab(next step)
+            } else 
+                alert(data.Error)
+            } else {
+                console.log("success");
+            }
+        }
+    );
+}
+
+
+//this function queries the Astra db for all events that correspond to the existing user
+function startTask3() {
+        //step3query.innerHTML = queryStmt;
+        setInsertVariables();
+        controlView();
+        console.log(clickCount);
+        var queryStmt = "select name from Event where asuriteID ='" + asurite + "';";   
+        console.log(queryStmt);
+
+        if(clickCount < 3)
+        {
+            MySql.Execute(
+            db_server, db_username, db_password, db_table,
+            queryStmt,                      // SQL query string
+            function (data) {
+                //step3Success.innerHTML=data.Success;
+                console.log("step3");
+                console.log(data);
+                if (!data.Success) {
+                    alert(data.Error)
+                } else {
+
+//  create a new paragraph holding event data and append it to the DOM
+                   var newParagraph = document.createElement("P");
+                   
+ 
+                   var txt = JSON.stringify(data.Result, null, 2);
+                   var jstring = JSON.parse(txt);
+                   var obj = jstring[0].name;
+                   console.log(obj);
+                
+                    
+                    
+                    console.log(txt);
+                    newParagraph.innerHTML = obj;
+                    newParagraph.style.font = 'Roboto';
+                    newParagraph.style.color = "black";
+                    newParagraph.style.textAlign = "left";
+                    newParagraph.style.fontSize = "20px";
+                    
+                    newParagraph.setAttribute("id", "newEventId");
+                    document.getElementById('newParagraphId').appendChild(newParagraph);
+
+
+                    //create a button
+                    var tmpBtn = document.createElement("button");
+                    tmpBtn.style.borderRadius = "10px";
+                    tmpBtn.style.border = "none";
+                    tmpBtn.style.padding = "5px";
+                    tmpBtn.style.color = "white";
+                    tmpBtn.style.fontWeight = "bold";
+                    tmpBtn.style.letterSpacing = "1px";
+                    tmpBtn.style.marginTop = "-5px";
+                    tmpBtn.style.backgroundColor = "#96363A";
+                    tmpBtn.style.marginRight = "5px";
+                    tmpBtn.style.cssFloat = "right";
+                    tmpBtn.style.display = "inline-block";
+                    
+
+                    tmpBtn.innerHTML = "View";
+                    tmpBtn.setAttribute("onclick","showTab(event, 'ViewEvent')");
+
+
+
+                    document.getElementById('newEventId').appendChild(tmpBtn);
+                    startTask4();
+
+                    document.getElementById('eventDetailsNameId').innerHTML = obj;
+
+                    var newDate = document.createElement("P");
+                    newDate.innerHTML = "Tues. 12/5/18";
+                    newDate.style.textAlign = "left";
+                    newDate.style.paddingLeft = "15px";
+                    newDate.style.color = "gray";
+
+                    document.getElementById('newEventId').appendChild(newDate);
+                    
+                }
+            }
+        );
+        }
+        else
+            return;
+        
+    }
+
+    function startTask4() {
+        setInsertVariables();
+        var queryStmt = "select * from Event where asuriteID ='" + asurite + "';"; 
+        
+        MySql.Execute(
+            db_server, db_username, db_password, db_table,
+            queryStmt,                      // SQL query string
+            function (data) {
+             
+                console.log("step3");
+                console.log(data);
+                if (!data.Success) {
+                    alert(data.Error)
+                } else {
+                    var text = JSON.stringify(data.Result, null, 2);
+                   var jstring = JSON.parse(text);
+                   var org = jstring[0].organization;
+                   var attendeeCount = jstring[0].attendeeAmount;
+                   var hProfile = jstring[0].highProfile;
+                   var f = jstring[0].fee;
+
+                   
+
+                   console.log(org);
+                
+                    
+                    
+                    //console.log(txt);
+                    document.getElementById('eventOrgId').innerHTML = org;
+                    document.getElementById('eventTypeId').innerHTML = "social";
+                    document.getElementById('eventAttendanceId').innerHTML = attendeeCount;
+                    document.getElementById('eventHighProfileId').innerHTML = hProfile;
+                    document.getElementById('eventFeeId').innerHTML = f;
