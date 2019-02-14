@@ -19,8 +19,5 @@ button {
 	color: white;
 }
 
-/* crosses out list items when clicked */
-ul li.crossedOut {
-	text-decoration: line-through;	
-}
+
 
