@@ -10,14 +10,19 @@
         
     </head>
     <body>
-        <div class = "header">
-            <input type="text" id="txt">
-            <button onclick="addLI()">Add</button>
-            <button onclick="editLI()">Edit</button>
-            <button onclick="deleteLI()">Delete</button>
+        <div id = "inputTable" class="center">
+          <input type="text" id="txt"></td>
         </div>
         
-        <div class="main">
+        <table id = "buttonTable" class="center">
+            <tr>
+                <td><button id="addButton" onclick="addLI()">Add</button></td>
+                <td><button onclick="editLI()">Edit</button></td>
+                <td><button onclick="deleteLI()">Delete</button></td>
+            </tr>
+        </table>
+        
+        <div id = "main" class="center">
             <ul id="list">
                 <li>Milk</li> 
                 <li>Apple</li>
