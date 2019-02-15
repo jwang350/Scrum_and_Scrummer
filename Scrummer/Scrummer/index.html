@@ -215,7 +215,7 @@
 		//we're using a stacked card approach for our main viewing area
 		//this array holds the ids of our cards and the method
 		//allows us to easly switch the interface from one to the other
-		var contentPanels = ['logonPanel', 'newAccountPanel', 'accountsPanel', 'editAccountPanel', 'requestsPanel'];
+        var contentPanels = ['logonPanel', 'newAccountPanel', 'accountsPanel', 'listPanel', 'editAccountPanel', 'requestsPanel'];
 		//this function toggles which panel is showing, and also clears data from all panels
 		function showPanel(panelId) {
 			clearData();
@@ -277,7 +277,7 @@
 					else {
 						//server replied false, so let the user know
 						//the logon failed
-						alert("logon failed");
+						alert("login failed");
 					}
 				},
 				error: function (e) {
@@ -457,7 +457,7 @@
 		}
 
 		//when an admin clicks either accounts or requests,
-		//they're shown teh appropriate screen
+		//they're shown the appropriate screen
 		function adminClick() {
 			if (accountWindowShowing) {
 				//show requests
@@ -632,6 +632,7 @@
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (msg) {
+                    //showPanel('listPanel');
                     if (msg.d.length > 0) {
                         //let's put our accounts that we get from the
                         //server into our accountsArray variable
@@ -639,8 +640,6 @@
                         listsArray = msg.d;
                         //this clears out the div that will hold our account info
                         $("#accountsBox").empty();
-                        //again, we assume we're not an admin unless we see data from the server
-                        //that we know only admins can see
                         for (var i = 0; i < listsArray.length; i++) {
                             //we grab on to a specific html element in jQuery
                             //by using a  # followed by that element's id.
@@ -670,6 +669,27 @@
             });
         }
 
+        //passes item info to the server, to add item to list
+        function AddItem (item) {
+            var webMethod = "ListServices.asmx/AddItemToList";
+            var parameters = "{\"item\":\"" + encodeURI(item) + "\"}";
+
+            $.ajax({
+                type: "POST",
+                url: webMethod,
+                data: parameters,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+                    alert("Item successfully added");
+                    LoadList();
+                },
+                error: function (e) {
+                    alert("boo...");
+                }
+            });
+        }
+
 	</script>
 </head>
 
@@ -683,28 +703,37 @@
 		</div>
 	</div>
 
-	<div class="contentContainer">
+    <div class="contentContainer">
 
-		<div id="logonPanel" class="contentPanel logonPanel">
-			<div class="logonBox">
-				<form onsubmit="LogOn($('#logonId').val(), $('#logonPassword').val()); return false;">
-					<div class="left">Logon</div>
-					<div><a href="#" onclick="showPanel('newAccountPanel')" class="tinyLink">...or request an account</a></div>
-					<hr />
-					<div>
-						ID: <input type="text" id="logonId" />
-					</div>
-					<div>
-						Pwd: <input type="password" id="logonPassword" />
-					</div>
-					<hr />
-					<div>
-						<button type="submit">Go!</button>
-					</div>
-				</form>
+        <div id="logonPanel" class="contentPanel logonPanel">
+            <div class="logonBox">
+                <form onsubmit="LogOn($('#logonId').val(), $('#logonPassword').val()); return false;">
+                    <div class="left">Logon</div>
+                    <div><a href="#" onclick="showPanel('newAccountPanel')" class="tinyLink">...or request an account</a></div>
+                    <hr />
+                    <div>
+                        ID: <input type="text" id="logonId" />
+                    </div>
+                    <div>
+                        Pwd: <input type="password" id="logonPassword" />
+                    </div>
+                    <hr />
+                    <div>
+                        <button type="submit">Go!</button>
+                    </div>
+                </form>
 
-			</div>
-		</div>
+            </div>
+        </div>
+
+        <!--<div id="accountsPanel" class="contentPanel">
+            <div class="left">Users</div>
+            <div class="left" style="font-size:smaller">click a name to send an email</div>
+            <hr />
+            <div class="accountsBox" id="accountsBox">
+
+            </div>
+        </div>-->
 
         <div id="accountsPanel" class="contentPanel">
             <div class="left">Lists</div>
@@ -713,78 +742,91 @@
             <div class="accountsBox" id="accountsBox">
 
             </div>
+            <div class="listBox">
+                <form onsubmit="AddItem($('#itemId').val()); return false;">
+                    <hr />
+                    <div class="left">Add to List</div>
+                    <hr />
+                    <div>
+                        Item: <input type="text" id="itemId" />
+                        <button type="submit">Add</button>
+                    </div>
+                </form>
+
+            </div>
         </div>
 
-		<div id="requestsPanel" class="contentPanel">
-			<div class="left">Account requests</div>
-			<hr />
-			<div class="accountsBox" id="requestsBox">
+
+        <div id="requestsPanel" class="contentPanel">
+            <div class="left">Account requests</div>
+            <hr />
+            <div class="accountsBox" id="requestsBox">
 
 
-			</div>
-		</div>
+            </div>
+        </div>
 
-		<div id="newAccountPanel" class="contentPanel newAccountPanel">
-			<div class="newAccountBox">
-				<form onsubmit="CreateAccount($('#newLogonId').val(), $('#newLogonPassword').val(), $('#newLogonFName').val(), $('#newLogonLName').val(), $('#newLogonEmail').val()); return false;">
-					<div class="left">Request Account</div>
-					<div><a href="#" onclick="showPanel('logonPanel')" class="tinyLink">...or log on</a></div>
-					<hr />
-					<div>
-						ID: <input type="text" id="newLogonId" />
-					</div>
-					<div>
-						Pwd: <input type="password" id="newLogonPassword" />
-					</div>
-					<div>
-						First: <input type="text" id="newLogonFName" />
-					</div>
-					<div>
-						Last: <input type="text" id="newLogonLName" />
-					</div>
-					<div>
-						Email: <input type="text" id="newLogonEmail" />
-					</div>
-					<hr />
-					<div>
-						<button type="submit">Go!</button>
-					</div>
-				</form>
+        <div id="newAccountPanel" class="contentPanel newAccountPanel">
+            <div class="newAccountBox">
+                <form onsubmit="CreateAccount($('#newLogonId').val(), $('#newLogonPassword').val(), $('#newLogonFName').val(), $('#newLogonLName').val(), $('#newLogonEmail').val()); return false;">
+                    <div class="left">Request Account</div>
+                    <div><a href="#" onclick="showPanel('logonPanel')" class="tinyLink">...or log on</a></div>
+                    <hr />
+                    <div>
+                        ID: <input type="text" id="newLogonId" />
+                    </div>
+                    <div>
+                        Pwd: <input type="password" id="newLogonPassword" />
+                    </div>
+                    <div>
+                        First: <input type="text" id="newLogonFName" />
+                    </div>
+                    <div>
+                        Last: <input type="text" id="newLogonLName" />
+                    </div>
+                    <div>
+                        Email: <input type="text" id="newLogonEmail" />
+                    </div>
+                    <hr />
+                    <div>
+                        <button type="submit">Go!</button>
+                    </div>
+                </form>
 
-			</div>
-		</div>
+            </div>
+        </div>
 
-		<div id="editAccountPanel" class="contentPanel newAccountPanel">
-			<div class="newAccountBox">
-				<form onsubmit="EditAccount(); return false;">
-					<div class="left">Edit Account</div>
-					<div><a href="#" onclick="DeactivateAccount()" class="tinyLink">...or deactivate</a></div>
-					<hr />
-					<div>
-						ID: <input type="text" id="editLogonId" />
-					</div>
-					<div>
-						Pwd: <input type="password" id="editLogonPassword" />
-					</div>
-					<div>
-						First: <input type="text" id="editLogonFName" />
-					</div>
-					<div>
-						Last: <input type="text" id="editLogonLName" />
-					</div>
-					<div>
-						Email: <input type="text" id="editLogonEmail" />
-					</div>
-					<hr />
-					<div>
-						<button type="submit">Save</button>
-					</div>
-				</form>
+        <div id="editAccountPanel" class="contentPanel newAccountPanel">
+            <div class="newAccountBox">
+                <form onsubmit="EditAccount(); return false;">
+                    <div class="left">Edit Account</div>
+                    <div><a href="#" onclick="DeactivateAccount()" class="tinyLink">...or deactivate</a></div>
+                    <hr />
+                    <div>
+                        ID: <input type="text" id="editLogonId" />
+                    </div>
+                    <div>
+                        Pwd: <input type="password" id="editLogonPassword" />
+                    </div>
+                    <div>
+                        First: <input type="text" id="editLogonFName" />
+                    </div>
+                    <div>
+                        Last: <input type="text" id="editLogonLName" />
+                    </div>
+                    <div>
+                        Email: <input type="text" id="editLogonEmail" />
+                    </div>
+                    <hr />
+                    <div>
+                        <button type="submit">Save</button>
+                    </div>
+                </form>
 
-			</div>
-		</div>
+            </div>
+        </div>
 
-	</div>
+    </div>
 
 </body>
 </html>
