@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27428.2037
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scrummer", "Scrummer\Scrummer.csproj", "{213A839E-E678-4398-BF31-B8A4FBA5C14C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{213A839E-E678-4398-BF31-B8A4FBA5C14C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{213A839E-E678-4398-BF31-B8A4FBA5C14C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{213A839E-E678-4398-BF31-B8A4FBA5C14C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{213A839E-E678-4398-BF31-B8A4FBA5C14C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6EE6DD32-32C2-4A22-B554-642B855A8B2B}
+	EndGlobalSection
+EndGlobal
