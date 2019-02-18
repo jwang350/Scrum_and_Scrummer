@@ -113,93 +113,90 @@
         
         <table id = "buttonTable" class="center">
             <tr>
-                <td><button id="addButton" onclick="addLI()">Add</button></td>
-                <td><button onclick="editLI()">Edit</button></td>
-                <td><button onclick="deleteLI()">Delete</button></td>
+                <td><button id="addItemButton" onclick="addLI(items, inputItemText); display(items, document.getElementById('list'))">Add</button></td>
+                <td><button onclick="editLI(items, inputItemText); display(items, document.getElementById('list'))">Edit</button></td>
+                <td><button onclick="deleteLI(items, inputItemText); display(items, document.getElementById('list'))">Delete</button></td>
             </tr>
         </table>
         
         <div id = "main" class="center">
             <ul id="list">
-                <li>Milk</li> 
-                <li>Apple</li>
-                <li>Cereals</li>
-                <li>Water</li>
             </ul>
         </div>
- </body>
+
+		
+        <div id = "storeTable" class="center">
+          <input type="text" id="storeTxt"></td>
+        </div>
+        
+        <table id = "storeButtonTable" class="center">
+            <tr>
+                <td><button id="addStoreButton" onclick="addLI(stores, inputStoreText); display(stores, document.getElementById('storeList'))">Add</button></td>
+                <td><button onclick="editLI(stores, inputStoreText); display(stores, document.getElementById('storeList'))">Edit</button></td>
+                <td><button onclick="deleteLI(stores, inputStoreText); display(stores, document.getElementById('storeList'))">Delete</button></td>
+            </tr>
+        </table>
+        
+        <div id = "main" class="center">
+            <ul id="storeList">
+            </ul>
+        </div>
+
+    </body>
+
+        
         <script>
             
-            var inputText = document.getElementById("txt"),
-                 items = document.querySelectorAll("#list li"),
-                 tab = [], 
-                 index;
-         
-             // get the selected li index using array
-             // populate array with li values
-             
-             for(var i = 0; i < items.length; i++){
-                 tab.push(items[i].innerHTML);
-             }
-             
-             // get li index onclick
-             for(var i = 0; i < items.length; i++){
-                 
-                 items[i].onclick = function(){
-                     index = tab.indexOf(this.innerHTML);
-                     console.log(this.innerHTML + " INDEX = " + index);
-                     // set the selected li value into input text
-                     inputText.value = this.innerHTML;
-                 };
-                 
-             }
-            
-            function refreshArray()
-            {
-                // clear array
-                tab.length = 0;
-                items = document.querySelectorAll("#list li");
-                // fill array
-                for(var i = 0; i < items.length; i++){
-                 tab.push(items[i].innerHTML);
-               }
+			// Declaring variables
+            var inputItemText = document.getElementById("txt"),			// The input box for the items
+                inputStoreText = document.getElementById("storeTxt"),	// The input box for the stored
+                items = [],												// Holds LI objects for the items
+                stores = [],											// Holds LI objects for the stores
+                currNode = null;										// Refers to whatever node has been clicked
+
+
+            // Called whaen adding a new list item
+            function addEvent(liNode, inputBox) {
+                liNode.onclick = function(){
+                    currNode = this;
+                    //console.log(currNode.innerHTML);
+                    inputBox.value = liNode.innerHTML;
+                };
             }
-            function addLI(){
-                
-                var listNode = document.getElementById("list"),
-                    textNode = document.createTextNode(inputText.value),
-                    liNode = document.createElement("LI");
-                    
-                    liNode.appendChild(textNode);
-                    listNode.appendChild(liNode);
-                    
-                    refreshArray();
-                    
-                    // add event to the new LI
-                    
-                     liNode.onclick = function(){
-                     index = tab.indexOf(liNode.innerHTML);
-                     console.log(liNode.innerHTML + " INDEX = " + index);
-                     // set the selected li value into input text
-                     inputText.value = liNode.innerHTML;
-                 };
-                    
-             }
+            
+            function display(info, node) {
+                node.innerHTML = '';
+                for(var i = 0; i < info.length; i++) {
+                    node.appendChild(info[i]);
+                }
+            }
+			
+			function createListNode(str) {
+				listNode = document.createElement('LI');
+                listNode.innerHTML = str;
+                return listNode;
+			}
+
+            function addLI(arr, inputBox) {
+				listNode = createListNode(inputBox.value);
+				addEvent(listNode, inputBox);
+				arr.push(listNode);
+                inputBox.value = "";
+            }
              
-             function editLI(){
-                 // edit the selected li using input text
-                 items[index].innerHTML = inputText.value;
-                 refreshArray();
-              }
+            function editLI(arr, inputBox) {
+                currNode.innerHTML = inputBox.value;
+                inputBox.value = "";
+                currNode = null;
+            }
               
-              function deleteLI(){
-                  
-                      refreshArray();
-                      if(items.length > 0){
-                          items[index].parentNode.removeChild(items[index]);
-                          inputText.value = "";
-                      }
-              }
+            function deleteLI(arr, inputBox) {
+                if(currNode != null){
+                    arr.splice(arr.indexOf(currNode), 1);
+                    inputBox.value = "";
+                    currNode = null;
+                }
+            }
             
         </script>
 </html>
