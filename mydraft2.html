@@ -8,9 +8,8 @@
             {
                 display:            flex;
                 flex-direction:     column;
-                width:              100%;
-                margin:             5px;
-                padding:            0px;
+                margin:             auto;
+                padding:            10px;
                 overflow:           hidden;
                 font-family:        'Century Gothic';
             } 
@@ -38,7 +37,7 @@
                 background-color:   #006600;
             }
 
-            #inputTable
+            #inputTable, #storeTable
             {
                 background-color:   white;
                 display:            flex;
@@ -46,8 +45,7 @@
                 align-items:        center;
                 border:             1px solid gray;
                 border-radius:      25px;
-                padding-left:       10px;
-                padding-right:      10px;
+                padding:            5px 10px 5px 10px;
             }
             .center 
             {
@@ -103,15 +101,22 @@
             {
                 cursor:             pointer
             }
+
+            .itemContainer, .storeContainer
+            {
+                border:             1px solid #ddd;
+                margin:             10px;
+            }
         </style>
         
     </head>
     <body>
         <div id = "inputTable" class="center">
-          <input type="text" id="txt"></td>
+          <input type="text" id="txt">
         </div>
-        
+        <div class = "itemContainer">
         <table id = "buttonTable" class="center">
+            <tr><td>Item</td></tr>
             <tr>
                 <td><button id="addItemButton" onclick="addLI(items, inputItemText); display(items, document.getElementById('list'))">Add</button></td>
                 <td><button onclick="editLI(items, inputItemText); display(items, document.getElementById('list'))">Edit</button></td>
@@ -123,13 +128,14 @@
             <ul id="list">
             </ul>
         </div>
+    </div>
 
-		
         <div id = "storeTable" class="center">
-          <input type="text" id="storeTxt"></td>
+          <input type="text" id="storeTxt">
         </div>
-        
+        <div class = "storeContainer">
         <table id = "storeButtonTable" class="center">
+            <tr><td>Store</td></tr>
             <tr>
                 <td><button id="addStoreButton" onclick="addLI(stores, inputStoreText); display(stores, document.getElementById('storeList'))">Add</button></td>
                 <td><button onclick="editLI(stores, inputStoreText); display(stores, document.getElementById('storeList'))">Edit</button></td>
@@ -141,6 +147,7 @@
             <ul id="storeList">
             </ul>
         </div>
+    </div>
 
     </body>
 
@@ -200,3 +207,4 @@
             
         </script>
 </html>
+
