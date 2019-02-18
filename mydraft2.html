@@ -2,10 +2,107 @@
 <html>
     <head>
         <title>Javascript: add edit delete List</title>
-        <link rel="stylesheet" type="text/css" href="./style.css"></style>
         
         <style>
-            li{cursor: pointer}
+            html, body 
+            {
+                display:            flex;
+                flex-direction:     column;
+                width:              100%;
+                margin:             5px;
+                padding:            0px;
+                overflow:           hidden;
+                font-family:        'Century Gothic';
+            } 
+
+            body 
+            {
+                height:             100%;
+            }
+
+            button 
+            {
+                border:             1px solid gray;
+                border-radius:      25px;
+                background-color:   #9ACD32;
+                color:              white;
+                margin:             4px 2px;
+                width:              60px;
+                height:             30px;
+                font-size:          15px;
+                cursor:             pointer;
+            }
+
+            button:hover
+            {
+                background-color:   #006600;
+            }
+
+            #inputTable
+            {
+                background-color:   white;
+                display:            flex;
+                flex-direction:     row;
+                align-items:        center;
+                border:             1px solid gray;
+                border-radius:      25px;
+                padding-left:       10px;
+                padding-right:      10px;
+            }
+            .center 
+            {
+                margin:             auto;
+                display:            table;
+            }
+
+            #main
+            {
+                width:              200px;
+                padding:            10px;
+            }
+
+            input
+            {
+                background-color:   transparent;
+                border:             0px solid;
+            }
+
+            * 
+            {   
+                box-sizing:         border-box;
+            }
+
+            ul
+            {
+                /* removes bullets from list */
+                list-style-type:    none;
+                padding:            0;
+                margin:             0;
+            }
+
+            ul li
+            {
+                border:             1px solid #ddd;
+                margin-top:         -1px;
+                background-color:   #f6f6f6;
+                padding:            12px;
+                text-decoration:    none;
+                color:              black;
+                display:            block;
+                position:           relative;
+                font:               'Century Gothic';
+            }
+
+            ul li:hover 
+            {
+                background-color:   #eee;
+            }
+
+
+            li
+            {
+                cursor:             pointer
+            }
         </style>
         
     </head>
