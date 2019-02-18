@@ -1,96 +1,205 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8" />
-    <title>Javascript: add edit delete List</title>
-</head>
-<body>
-    <input type="text" id="txt">
-    <button onclick="addLI()">Add</button>
-    <button onclick="editLI()">Edit</button>
-    <button onclick="deleteLI()">Delete</button>
+    <head>
+        <title>Javascript: add edit delete List</title>
+        
+        <style>
+            html, body 
+            {
+                display:            flex;
+                flex-direction:     column;
+                width:              100%;
+                margin:             5px;
+                padding:            0px;
+                overflow:           hidden;
+                font-family:        'Century Gothic';
+            } 
 
-    <ul id="list">
-        <li>Milk</li>
-        <li>Apple</li>
-        <li>Cereals</li>
-        <li>Water</li>
-    </ul>
-
-    <script>
-
-        var inputText = document.getElementById("txt"),
-                items = document.querySelectorAll("#list li"),
-                tab = [],
-                index;
-
-            // get the selected li index using array
-            // populate array with li values
-
-            for(var i = 0; i < items.length; i++){
-                tab.push(items[i].innerHTML);
+            body 
+            {
+                height:             100%;
             }
 
-            // get li index onclick
-            for(var i = 0; i < items.length; i++){
-
-                items[i].onclick = function(){
-                    index = tab.indexOf(this.innerHTML);
-                    console.log(this.innerHTML + " INDEX = " + index);
-                    // set the selected li value into input text
-                    inputText.value = this.innerHTML;
-                };
-
+            button 
+            {
+                border:             1px solid gray;
+                border-radius:      25px;
+                background-color:   #9ACD32;
+                color:              white;
+                margin:             4px 2px;
+                width:              60px;
+                height:             30px;
+                font-size:          15px;
+                cursor:             pointer;
             }
 
-        function refreshArray()
-        {
-            // clear array
-            tab.length = 0;
-            items = document.querySelectorAll("#list li");
-            // fill array
-            for(var i = 0; i < items.length; i++){
-                tab.push(items[i].innerHTML);
-            }
-        }
-        function addLI(){
-
-            var listNode = document.getElementById("list"),
-                textNode = document.createTextNode(inputText.value),
-                liNode = document.createElement("LI");
-
-                liNode.appendChild(textNode);
-                listNode.appendChild(liNode);
-
-                refreshArray();
-
-                // add event to the new LI
-
-                    liNode.onclick = function(){
-                    index = tab.indexOf(liNode.innerHTML);
-                    console.log(liNode.innerHTML + " INDEX = " + index);
-                    // set the selected li value into input text
-                    inputText.value = liNode.innerHTML;
-                };
-
+            button:hover
+            {
+                background-color:   #006600;
             }
 
-        function editLI(){
-            // edit the selected li using input text
-            items[index].innerHTML = inputText.value;
-            refreshArray();
-        }
+            #inputTable
+            {
+                background-color:   white;
+                display:            flex;
+                flex-direction:     row;
+                align-items:        center;
+                border:             1px solid gray;
+                border-radius:      25px;
+                padding-left:       10px;
+                padding-right:      10px;
+            }
+            .center 
+            {
+                margin:             auto;
+                display:            table;
+            }
 
-        function deleteLI(){
+            #main
+            {
+                width:              200px;
+                padding:            10px;
+            }
 
-                refreshArray();
-                if(items.length > 0){
-                    items[index].parentNode.removeChild(items[index]);
-                    inputText.value = "";
-                }
-         }
+            input
+            {
+                background-color:   transparent;
+                border:             0px solid;
+            }
+
+            * 
+            {   
+                box-sizing:         border-box;
+            }
+
+            ul
+            {
+                /* removes bullets from list */
+                list-style-type:    none;
+                padding:            0;
+                margin:             0;
+            }
+
+            ul li
+            {
+                border:             1px solid #ddd;
+                margin-top:         -1px;
+                background-color:   #f6f6f6;
+                padding:            12px;
+                text-decoration:    none;
+                color:              black;
+                display:            block;
+                position:           relative;
+                font:               'Century Gothic';
+            }
+
+            ul li:hover 
+            {
+                background-color:   #eee;
+            }
 
 
-    </script>
-</body>
+            li
+            {
+                cursor:             pointer
+            }
+        </style>
+        
+    </head>
+    <body>
+        <div id = "inputTable" class="center">
+          <input type="text" id="txt"></td>
+        </div>
+        
+        <table id = "buttonTable" class="center">
+            <tr>
+                <td><button id="addButton" onclick="addLI()">Add</button></td>
+                <td><button onclick="editLI()">Edit</button></td>
+                <td><button onclick="deleteLI()">Delete</button></td>
+            </tr>
+        </table>
+        
+        <div id = "main" class="center">
+            <ul id="list">
+                <li>Milk</li> 
+                <li>Apple</li>
+                <li>Cereals</li>
+                <li>Water</li>
+            </ul>
+        </div>
+ </body>
+        <script>
+            
+            var inputText = document.getElementById("txt"),
+                 items = document.querySelectorAll("#list li"),
+                 tab = [], 
+                 index;
+         
+             // get the selected li index using array
+             // populate array with li values
+             
+             for(var i = 0; i < items.length; i++){
+                 tab.push(items[i].innerHTML);
+             }
+             
+             // get li index onclick
+             for(var i = 0; i < items.length; i++){
+                 
+                 items[i].onclick = function(){
+                     index = tab.indexOf(this.innerHTML);
+                     console.log(this.innerHTML + " INDEX = " + index);
+                     // set the selected li value into input text
+                     inputText.value = this.innerHTML;
+                 };
+                 
+             }
+            
+            function refreshArray()
+            {
+                // clear array
+                tab.length = 0;
+                items = document.querySelectorAll("#list li");
+                // fill array
+                for(var i = 0; i < items.length; i++){
+                 tab.push(items[i].innerHTML);
+               }
+            }
+            function addLI(){
+                
+                var listNode = document.getElementById("list"),
+                    textNode = document.createTextNode(inputText.value),
+                    liNode = document.createElement("LI");
+                    
+                    liNode.appendChild(textNode);
+                    listNode.appendChild(liNode);
+                    
+                    refreshArray();
+                    
+                    // add event to the new LI
+                    
+                     liNode.onclick = function(){
+                     index = tab.indexOf(liNode.innerHTML);
+                     console.log(liNode.innerHTML + " INDEX = " + index);
+                     // set the selected li value into input text
+                     inputText.value = liNode.innerHTML;
+                 };
+                    
+             }
+             
+             function editLI(){
+                 // edit the selected li using input text
+                 items[index].innerHTML = inputText.value;
+                 refreshArray();
+              }
+              
+              function deleteLI(){
+                  
+                      refreshArray();
+                      if(items.length > 0){
+                          items[index].parentNode.removeChild(items[index]);
+                          inputText.value = "";
+                      }
+              }
+            
+        </script>
 </html>
