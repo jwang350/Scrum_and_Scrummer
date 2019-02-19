@@ -272,7 +272,6 @@
 						//server replied true, so show the accounts panel
 						showPanel('accountsPanel');
                         LoadAccounts();
-                        //var myWindow = window.open("List.html", "_self");
 					}
 					else {
 						//server replied false, so let the user know
@@ -328,7 +327,14 @@
 									"<a class='nameTag' href='mailto:" + accountsArray[i].email + "'>" +
 									accountsArray[i].firstName + " " + accountsArray[i].lastName +
 									"</a> <a href='#' onclick='LoadAccount(" + accountsArray[i].id+")' class='optionsTag'>edit</a></div><hr>"
-								admin = true;
+                                admin = true;
+                                $("#accountsBox").append(
+                                    //anything we throw at our panel in the form of text
+                                    //will be added to the contents of that panel.  Here
+                                    //we're putting together a div that holds info on the
+                                    //account as well as an edit link if the user is an admin
+                                    acct
+                                );
 							}
 							//if not, then they're not an admin so don't include the edit option
 							else {
@@ -336,15 +342,10 @@
 									"<a class='nameTag' href='mailto:" + accountsArray[i].email + "'>" +
 									accountsArray[i].firstName + " " + accountsArray[i].lastName +
 									"</a></div><hr>"*/
+                                showPanel('listPanel');
                                 LoadList()
 							}
-							$("#accountsBox").append(
-								//anything we throw at our panel in the form of text
-								//will be added to the contents of that panel.  Here
-								//we're putting together a div that holds info on the
-								//account as well as an edit link if the user is an admin
-								acct
-							);
+
 						}
 					}
 					//we're showing the account window, so let's track that...
@@ -639,7 +640,7 @@
                         //so we can use them in other functions as well
                         listsArray = msg.d;
                         //this clears out the div that will hold our account info
-                        $("#accountsBox").empty();
+                        $("#listItemBox").empty();
                         for (var i = 0; i < listsArray.length; i++) {
                             //we grab on to a specific html element in jQuery
                             //by using a  # followed by that element's id.
@@ -648,7 +649,7 @@
                             acct = "<div class='accountRow' id='acct" + listsArray[i].id + "'>" +
                                 listsArray[i].list +"</div><hr>"
 
-                            $("#accountsBox").append(
+                            $("#listItemBox").append(
                                 //anything we throw at our panel in the form of text
                                 //will be added to the contents of that panel.  Here
                                 //we're putting together a div that holds info on the
@@ -726,20 +727,20 @@
             </div>
         </div>
 
-        <!--<div id="accountsPanel" class="contentPanel">
+        <div id="accountsPanel" class="contentPanel">
             <div class="left">Users</div>
             <div class="left" style="font-size:smaller">click a name to send an email</div>
             <hr />
             <div class="accountsBox" id="accountsBox">
 
             </div>
-        </div>-->
+        </div>
 
-        <div id="accountsPanel" class="contentPanel">
+        <div id="listPanel" class="contentPanel">
             <div class="left">Lists</div>
             <!-- <div class="left" style="font-size:smaller">click a name to send an email</div>-->
             <hr />
-            <div class="accountsBox" id="accountsBox">
+            <div class="listItemBox" id="listItemBox">
 
             </div>
             <div class="listBox">

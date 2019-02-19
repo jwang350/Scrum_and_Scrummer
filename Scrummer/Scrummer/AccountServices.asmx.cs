@@ -145,7 +145,7 @@ namespace Scrummer
                 sqlDa.Fill(sqlDt);
 
                 //loop through each row in the dataset, creating instances
-                //of our container class Account.  Fill each acciount with
+                //of our container class Account.  Fill each account with
                 //data from the rows, then dump them in a list.
                 List<Account> accounts = new List<Account>();
                 for (int i = 0; i < sqlDt.Rows.Count; i++)
