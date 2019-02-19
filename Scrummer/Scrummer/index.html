@@ -7,213 +7,6 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
-    <style>
-        html, body {
-            display: flex;
-            flex-direction: column;
-            width: 100%;
-            margin: 0px;
-            padding: 0px;
-            overflow: hidden;
-            font-family: 'Century Gothic';
-        }
-
-        body {
-            height: 100%;
-        }
-
-        button {
-            border: 1px solid gray;
-            border-radius: 25px;
-            background-color: #3cb371;
-            color: white;
-        }
-
-            button:hover {
-                background-color: #006600;
-            }
-
-        .titleContainer {
-            background-color: #3cb371;
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            border: 1px solid gray;
-            border-radius: 25px;
-            padding-left: 10px;
-            padding-right: 10px;
-            color: white;
-        }
-
-        .menu {
-            flex: 1;
-            text-align: right;
-            color: #bbbbbb;
-            visibility: hidden;
-        }
-
-            .menu a {
-                font-size: small;
-                color: blue;
-            }
-
-        .contentContainer {
-            flex: 1;
-            position: relative;
-            margin: 5px;
-        }
-
-        .contentPanel {
-            position: absolute;
-            top: 0px;
-            left: 0px;
-            height: 100%;
-            width: 100%;
-            visibility: hidden;
-            flex: 1;
-            /*border: 1px solid gray;
-            border-radius: 25px;*/
-        }
-
-        .logonPanel {
-            text-align: center;
-        }
-
-        .accountsPanel {
-            text-align: center;
-        }
-
-        .logonBox {
-            display: inline-block;
-            text-align: right;
-        }
-
-            .logonBox div {
-                padding: 0px;
-                margin: 0px;
-            }
-
-            .logonBox hr {
-                padding: 0px;
-                margin: 0px;
-            }
-
-            .logonBox input {
-                width: 100px;
-                border: 1px inset gray;
-            }
-
-        .newAccountPanel {
-            text-align: center;
-        }
-
-        .newAccountBox {
-            display: inline-block;
-            text-align: right;
-        }
-
-            .newAccountBox input {
-                width: 100px;
-                border: 1px inset gray;
-            }
-
-            .newAccountBox hr {
-                padding: 0px;
-                margin: 0px;
-            }
-
-        .accountsBox {
-            display: inline-block;
-            width: 100%;
-        }
-
-            .accountsBox hr {
-                padding: 0px;
-                margin-left: auto;
-                margin-right: auto;
-                width: 40px;
-            }
-
-        .accountRow {
-            margin-left: auto;
-            margin-right: auto;
-            width: 100%;
-        }
-
-        .chatPanel {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .messagesPanel {
-            overflow-y: scroll;
-            margin-top: 20px;
-            flex: 1;
-        }
-
-        .nameTag {
-            font-weight: bold;
-            font-size: small;
-            text-decoration: none;
-            color: black;
-        }
-
-        .msg {
-            margin-top: 5px;
-        }
-
-        .chatInputPanel {
-            height: 40px;
-            margin-top: 10px;
-            border-top: 1px solid #bbbbbb;
-            border-left: none;
-            border-right: none;
-            border-bottom: none;
-            padding-left: 20px;
-            padding-right: 20px;
-            padding-bottom: 2px;
-            display: flex;
-            flex-direction: row;
-        }
-
-        .chatInput {
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            border: none;
-        }
-
-        .tinyLink {
-            font-size: smaller;
-            text-decoration: none;
-            color: blue;
-        }
-
-        .noBoard {
-            height: 100%;
-        }
-
-        .board {
-            height: 50%;
-        }
-
-        .sendButton {
-            margin-top: 7px;
-            width: 20px;
-            height: 20px;
-        }
-
-        .left {
-            text-align: left;
-        }
-
-        .optionsTag {
-            float: right;
-            font-size: small;
-            color: blue;
-        }
-    </style>
     <link rel="stylesheet" href="styles.css">
 
     <script type="text/javascript">
@@ -802,26 +595,27 @@
         <div id="listPanel" class="contentPanel">
             <div class="left">Lists</div>
             <!-- <div class="left" style="font-size:smaller">click a name to send an email</div>-->
-            <div class="listBox">
-                <form>
-                    <hr />
-                    <div class="left" >Add to List</div>
-                    <div id="inputTable" class="center">
-                        <input type="text" id="txt">
-                        <table id="buttonTable" class="center">
-                            <tr>
-                                <td><button type="submit" onclick="AddItem($('#txt').val()); return false;">Add</button></td>
-                                <td><button onclick="EditListItem($('#txt').val()); return false;">Edit</button></td>
-                                <td><button>Delete</button></td>
-                            </tr>
-                        </table>
+            <div class="listBox">              
+                <hr />
+                <div class="left" >Add to List</div>
+                <div id="inputTable" class="center">
+                    <input type="text" id="txt">
                     </div>
-                </form>
+                <div class="itemContainer">
+                    <table id="buttonTable" class="center">
+                        <tr>
+                            <td><button type="submit" onclick="AddItem($('#txt').val()); return false;">Add</button></td>
+                            <td><button onclick="EditListItem($('#txt').val()); return false;">Edit</button></td>
+                            <td><button>Delete</button></td>
+                        </tr>
+                    </table>
+                    <div id="main" class="center">
+                    <hr />
+                    <ul class="listItemBox" id="listItemBox"></ul>
+                    </div>
+                </div>                
             </div>
-            <hr />
-            <ul class="listItemBox" id="listItemBox">
-
-            </ul>            
+          
         </div>
 
 

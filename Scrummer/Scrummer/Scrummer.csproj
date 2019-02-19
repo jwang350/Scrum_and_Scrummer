@@ -85,7 +85,6 @@
     <Content Include="AccountServices.asmx" />
     <Content Include="Global.asax" />
     <Content Include="index.html" />
-    <Content Include="List.html" />
     <Content Include="ListServices.asmx" />
     <Content Include="styles.css" />
     <Content Include="Web.config" />
