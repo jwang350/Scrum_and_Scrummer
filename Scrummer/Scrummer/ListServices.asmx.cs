@@ -29,7 +29,7 @@ namespace Scrummer
             DataTable sqlDt = new DataTable("lists");
 
             string sqlConnectString = System.Configuration.ConfigurationManager.ConnectionStrings["myDB"].ConnectionString;
-            string sqlSelect = "select List from list";
+            string sqlSelect = "select * from list";
 
             MySqlConnection sqlConnection = new MySqlConnection(sqlConnectString);
             MySqlCommand sqlCommand = new MySqlCommand(sqlSelect, sqlConnection);
@@ -47,6 +47,7 @@ namespace Scrummer
             {
                 lists.Add(new List
                 {
+                    id = Convert.ToInt32(sqlDt.Rows[i]["Id"]),
                     list = sqlDt.Rows[i]["List"].ToString(),
                 });
             }
@@ -83,6 +84,33 @@ namespace Scrummer
                 //the requested account.  Really this is just an example to show you
                 //a query where you get the primary key of the inserted row back from
                 //the database!
+            }
+            catch (Exception e)
+            {
+            }
+            sqlConnection.Close();
+        }
+
+        //EXAMPLE OF AN UPDATE QUERY WITH PARAMS PASSED IN
+        [WebMethod(EnableSession = true)]
+        public void UpdateList(string id, string list)
+        {
+            string sqlConnectString = System.Configuration.ConfigurationManager.ConnectionStrings["myDB"].ConnectionString;
+            //this is a simple update, with parameters to pass in values
+            string sqlSelect = "update list set List=@listValue where id=@idValue";
+
+            MySqlConnection sqlConnection = new MySqlConnection(sqlConnectString);
+            MySqlCommand sqlCommand = new MySqlCommand(sqlSelect, sqlConnection);
+
+            sqlCommand.Parameters.AddWithValue("@listValue", HttpUtility.UrlDecode(list));
+            sqlCommand.Parameters.AddWithValue("@idValue", HttpUtility.UrlDecode(id));
+
+            sqlConnection.Open();
+            //we're using a try/catch so that if the query errors out we can handle it gracefully
+            //by closing the connection and moving on
+            try
+            {
+                sqlCommand.ExecuteNonQuery();
             }
             catch (Exception e)
             {

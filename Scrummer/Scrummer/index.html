@@ -626,12 +626,13 @@
 
 
 
-
+// Functions for List below ----------------------------------------------------------------------------------------------------
 
 
         var listsArray;
+        var currentItemId;
 
-        //this function grabs accounts and loads our account window
+        //this function grabs lists and loads our list window
         function LoadList() {
             var webMethod = "ListServices.asmx/GetList";
             $.ajax({
@@ -640,7 +641,6 @@
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (msg) {
-                    //showPanel('listPanel');
                     if (msg.d.length > 0) {
                         //let's put our accounts that we get from the
                         //server into our accountsArray variable
@@ -653,7 +653,7 @@
                             //by using a  # followed by that element's id.
                             var acct;
 
-                            acct = "<li class='accountRow' id='acct" + listsArray[i].id + "'>" +
+                            acct = "<li class='accountRow' id='" + listsArray[i].id + " onclick='currentItem(" + listsArray[i].id + ")'>" +
                                 listsArray[i].list + "</li>"
 
                             $("#listItemBox").append(
@@ -727,6 +727,31 @@
 
         }
 
+        function currentItem(id) {
+            currentItemId = id;
+        }
+
+        //ajax to send the edits of an item to the server
+        function EditListItem(item) {
+            var webMethod = "ListServices.asmx/UpdateList";
+            var parameters = "{\"id\":\"" + encodeURI(currentItemId.id) + "\",\"list\":\"" + encodeURI(item) +"\"}";
+
+            $.ajax({
+                type: "POST",
+                url: webMethod,
+                data: parameters,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+                    showPanel('listPanel');
+                    LoadList();
+                },
+                error: function (e) {
+                    alert("boo...");
+                }
+            });
+        }
+
 
 
     </script>
@@ -778,15 +803,15 @@
             <div class="left">Lists</div>
             <!-- <div class="left" style="font-size:smaller">click a name to send an email</div>-->
             <div class="listBox">
-                <form onsubmit="AddItem($('#txt').val()); return false;">
+                <form>
                     <hr />
                     <div class="left" >Add to List</div>
                     <div id="inputTable" class="center">
                         <input type="text" id="txt">
                         <table id="buttonTable" class="center">
                             <tr>
-                                <td><button type="submit">Add</button></td>
-                                <td><button>Edit</button></td>
+                                <td><button type="submit" onclick="AddItem($('#txt').val()); return false;">Add</button></td>
+                                <td><button onclick="EditListItem($('#txt').val()); return false;">Edit</button></td>
                                 <td><button>Delete</button></td>
                             </tr>
                         </table>
