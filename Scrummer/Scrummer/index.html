@@ -423,7 +423,6 @@
 
 
         var listsArray;
-        var currentItemId;
 
         //this function grabs lists and loads our list window
         function LoadList() {
@@ -446,7 +445,7 @@
                             //by using a  # followed by that element's id.
                             var acct;
 
-                            acct = "<li class='accountRow' id='" + listsArray[i].id + " onclick='currentItem(" + listsArray[i].id + ")'>" +
+                            acct = "<li class='accountRow' id=" + listsArray[i].id + " onclick='currentItem(" + listsArray[i].id + ")'>" +
                                 listsArray[i].list + "</li>"
 
                             $("#listItemBox").append(
@@ -457,7 +456,6 @@
                                 acct
                             );
                         }
-                        Clickable();
                     }
                     //we're showing the account window, so let's track that...
                     accountWindowShowing = true;
@@ -492,42 +490,22 @@
             });
         }
 
+        var currentItemId;
+        var currentItemUpdates;
 
-        function Clickable() {
-            var inputText = document.getElementById("txt"),
-                items = document.querySelectorAll("#listItemBox li"),
-                tab = [],
-                index;
-
-            // get the selected li index using array
-            // populate array with li values
-
-            for (var i = 0; i < items.length; i++) {
-                tab.push(items[i].innerHTML);
-            }
-
-            // get li index onclick
-            for (var i = 0; i < items.length; i++) {
-
-                items[i].onclick = function () {
-                    index = tab.indexOf(this.innerHTML);
-                    console.log(this.innerHTML + " INDEX = " + index);
-                    // set the selected li value into input text
-                    inputText.value = this.innerHTML;
-                };
-
-            }
-
-        }
-
+        // Saves selected item ID and outputs text content in txt input box. 
         function currentItem(id) {
             currentItemId = id;
+            var itemText = document.getElementById(id).textContent;
+            var inputText = document.getElementById("txt");
+            inputText.value = itemText;
         }
 
         //ajax to send the edits of an item to the server
-        function EditListItem(item) {
+        function EditListItem() {
+            currentItemUpdates = document.getElementById("txt").value;
             var webMethod = "ListServices.asmx/UpdateList";
-            var parameters = "{\"id\":\"" + encodeURI(currentItemId.id) + "\",\"list\":\"" + encodeURI(item) +"\"}";
+            var parameters = "{\"id\":\"" + encodeURI(currentItemId) + "\",\"list\":\"" + encodeURI(currentItemUpdates) +"\"}";
 
             $.ajax({
                 type: "POST",
@@ -537,6 +515,29 @@
                 dataType: "json",
                 success: function (msg) {
                     showPanel('listPanel');
+                    alert("Item successfully updated");
+                    LoadList();
+                },
+                error: function (e) {
+                    alert("boo...");
+                }
+            });
+        }
+
+        //an ajax to delete a list
+        function DeleteItem() {
+            var webMethod = "ListServices.asmx/DeleteListItem";
+            var parameters = "{\"id\":\"" + encodeURI(currentItemId) + "\"}";
+
+            $.ajax({
+                type: "POST",
+                url: webMethod,
+                data: parameters,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+                    showPanel('listPanel');
+                    alert("Item successfully deleeted from list");
                     LoadList();
                 },
                 error: function (e) {
@@ -606,7 +607,7 @@
                         <tr>
                             <td><button type="submit" onclick="AddItem($('#txt').val()); return false;">Add</button></td>
                             <td><button onclick="EditListItem($('#txt').val()); return false;">Edit</button></td>
-                            <td><button>Delete</button></td>
+                            <td><button onclick="DeleteItem(); return false;">Delete</button></td>
                         </tr>
                     </table>
                     <div id="main" class="center">
