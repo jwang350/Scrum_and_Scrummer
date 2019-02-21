@@ -566,19 +566,17 @@
         <div id="logonPanel" class="contentPanel logonPanel">
             <div class="logonBox">
                 <form onsubmit="LogOn($('#logonId').val(), $('#logonPassword').val()); return false;">
-                    <div class="left">Logon</div>
+                    <div id="logonLabel" class="left">LOGIN</div>
+                    <div class="left">
+                        ID <input type="text" id="logonId" />
+                    </div>
+                    <div class="left">
+                        PASSWORD <input type="password" id="logonPassword" />
+                    </div>
+                    <div>
+                        <button type="submit">LOGIN</button>
+                    </div>
                     <div><a href="#" onclick="showPanel('newAccountPanel')" class="tinyLink">...or request an account</a></div>
-                    <hr />
-                    <div>
-                        ID: <input type="text" id="logonId" />
-                    </div>
-                    <div>
-                        Pwd: <input type="password" id="logonPassword" />
-                    </div>
-                    <hr />
-                    <div>
-                        <button type="submit">Go!</button>
-                    </div>
                 </form>
 
             </div>
