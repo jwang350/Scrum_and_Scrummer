@@ -591,15 +591,20 @@
             </div>
         </div>
 
+
         <div id="listPanel" class="contentPanel">
-            <div class="left">Lists</div>
-            <!-- <div class="left" style="font-size:smaller">click a name to send an email</div>-->
-            <div class="listBox">              
+            <div class="listBox">  
+                <div class="left">Lists</div>
+                <!-- <div class="left" style="font-size:smaller">click a name to send an email</div>-->            
                 <hr />
                 <div class="left" >Add to List</div>
+                
                 <div id="inputTable" class="center">
+                
                     <input type="text" id="txt">
-                    </div>
+                
+                </div>
+                
                 <div class="itemContainer">
                     <table id="buttonTable" class="center">
                         <tr>
@@ -608,13 +613,12 @@
                             <td><button onclick="DeleteItem(); return false;">Delete</button></td>
                         </tr>
                     </table>
-                    <div id="main" class="center">
-                    <hr />
-                    <ul class="listItemBox" id="listItemBox"></ul>
+                    <div id="listMain" class="center">
+                        <hr />
+                        <ul class="listItemBox" id="listItemBox"></ul>
                     </div>
                 </div>                
-            </div>
-          
+            </div>       
         </div>
 
 
