@@ -16,7 +16,7 @@ body
     height:                     100%;
 }
 
-.buttonTable button 
+#buttonTable button 
 {
     border:                     1px solid gray;
     border-radius:              25px;
@@ -29,7 +29,7 @@ body
     cursor:                     pointer;
 }
 
-.buttonTable button:hover 
+#buttonTable button:hover 
 {
     background-color:           #006600;
 }
@@ -293,10 +293,20 @@ body
     text-align:                 center;
 }
 
-#main 
+#listMain 
 {
     width:                      200px;
     padding:                    10px;
+}
+
+.listBox
+{
+    display:                    inline-block;
+    text-align:                 right;
+    background-color:           white;
+    height:                     70%;
+    margin:                     100px;
+    width:                      400px;
 }
 
 .listBox input 
