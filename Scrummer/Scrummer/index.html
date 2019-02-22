@@ -593,19 +593,12 @@
 
 
         <div id="listPanel" class="contentPanel">
-            <div class="listBox">  
-                <div class="left">Lists</div>
-                <!-- <div class="left" style="font-size:smaller">click a name to send an email</div>-->            
-                <hr />
-                <div class="left" >Add to List</div>
+            <div class="listBox">         
+                <div class="left" >List</div>
                 
-                <div id="inputTable" class="center">
-                
+                <div class="center">                
                     <input type="text" id="txt">
-                
-                </div>
-                
-                <div class="itemContainer">
+                    <!--<div class="itemContainer">-->
                     <table id="buttonTable" class="center">
                         <tr>
                             <td><button type="submit" onclick="AddItem($('#txt').val()); return false;">Add</button></td>
@@ -614,10 +607,8 @@
                         </tr>
                     </table>
                     <div id="listMain" class="center">
-                        <hr />
                         <ul class="listItemBox" id="listItemBox"></ul>
-                    </div>
-                </div>                
+                    </div>             
             </div>       
         </div>
 

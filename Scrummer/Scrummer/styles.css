@@ -16,24 +16,6 @@ body
     height:                     100%;
 }
 
-#buttonTable button 
-{
-    border:                     1px solid gray;
-    border-radius:              25px;
-    background-color:           #3cb371;
-    color:                      white;
-    margin:                     4px 2px;
-    width:                      60px;
-    height:                     30px;
-    font-size:                  15px;
-    cursor:                     pointer;
-}
-
-#buttonTable button:hover 
-{
-    background-color:           #006600;
-}
-
 .titleContainer 
 {
     background-color:           white;
@@ -84,6 +66,11 @@ body
 .logonPanel 
 {
     text-align:                 center;
+}
+
+.listPanel 
+{
+    text-align: center;
 }
 
 .accountsPanel 
@@ -276,16 +263,30 @@ body
     color:                      blue;
 }
 
-#inputTable 
+#buttonTable
 {
-    background-color:           white;
-    display:                    flex;
-    flex-direction:             row;
-    align-items:                center;
+    top:                        0px;
+    left:                       0px;
+    height:                     100%;
+    width:                      100%;
+}
+
+#buttonTable button 
+{
     border:                     1px solid gray;
     border-radius:              25px;
-    padding-left:               10px;
-    padding-right:              10px;
+    background-color:           white;
+    color:                      #3cb371;
+    margin:                     4px 2px;
+    width:                      100px;
+    height:                     30px;
+    font-size:                  15px;
+    cursor:                     pointer;
+}
+
+#buttonTable button:hover 
+{
+    background-color:           #006600;
 }
 
 .center 
@@ -293,26 +294,27 @@ body
     text-align:                 center;
 }
 
-#listMain 
-{
-    width:                      200px;
-    padding:                    10px;
-}
-
 .listBox
 {
     display:                    inline-block;
-    text-align:                 right;
-    background-color:           white;
     height:                     70%;
-    margin:                     100px;
-    width:                      400px;
+    margin-left:                30%;
+    margin-right:               30%;
+    width:                      40%;
 }
 
 .listBox input 
 {
-    background-color:           transparent;
-    border:                     0px solid;
+    background-color:           white;
+    flex-direction:             row;
+    border:                     1px solid gray;
+    border-radius:              25px;
+    padding-left:               10px;
+    padding-right:              10px;
+    width:                      100%;
+    height:                     30px;
+    font-size:                  15px;
+    padding:                    10px 20px;
 }
 
 * 
