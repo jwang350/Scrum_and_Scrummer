@@ -86,6 +86,7 @@
     <Content Include="Global.asax" />
     <Content Include="index.html" />
     <Content Include="ListServices.asmx" />
+    <Content Include="StoreServices.asmx" />
     <Content Include="styles.css" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -105,6 +106,11 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Store.cs" />
+    <Compile Include="StoreServices.asmx.cs">
+      <DependentUpon>StoreServices.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

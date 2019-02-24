@@ -13,23 +13,23 @@ using System.Data;
 namespace Scrummer
 {
     /// <summary>
-    /// Summary description for ListServices
+    /// Summary description for StoreServices
     /// </summary>
     [WebService(Namespace = "http://tempuri.org/")]
     [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
     [System.ComponentModel.ToolboxItem(false)]
     // To allow this Web Service to be called from script, using ASP.NET AJAX, uncomment the following line. 
     [System.Web.Script.Services.ScriptService]
-    public class ListServices : System.Web.Services.WebService
+    public class StoreServices : System.Web.Services.WebService
     {
 
         [WebMethod]
-        public List[] GetList()
+        public Store[] GetStoreList()
         {
-            DataTable sqlDt = new DataTable("lists");
+            DataTable sqlDt = new DataTable("stores");
 
             string sqlConnectString = System.Configuration.ConfigurationManager.ConnectionStrings["myDB"].ConnectionString;
-            string sqlSelect = "select * from list";
+            string sqlSelect = "select * from stores";
 
             MySqlConnection sqlConnection = new MySqlConnection(sqlConnectString);
             MySqlCommand sqlCommand = new MySqlCommand(sqlSelect, sqlConnection);
@@ -42,34 +42,33 @@ namespace Scrummer
             //loop through each row in the dataset, creating instances
             //of our container class Account.  Fill each acciount with
             //data from the rows, then dump them in a list.
-            List<List> lists = new List<List>();
+            List<Store> stores = new List<Store>();
             for (int i = 0; i < sqlDt.Rows.Count; i++)
             {
-                lists.Add(new List
+                stores.Add(new Store
                 {
                     id = Convert.ToInt32(sqlDt.Rows[i]["Id"]),
-                    list = sqlDt.Rows[i]["List"].ToString(),
-                    checkedId = sqlDt.Rows[i]["checked"].ToString(),
+                    storeName = sqlDt.Rows[i]["storeName"].ToString(),
                 });
             }
             //convert the list of accounts to an array and return!
-            return lists.ToArray();
+            return stores.ToArray();
         }
 
         // Add item to list in DB
         [WebMethod(EnableSession = true)]
-        public void AddItemToList(string item)
+        public void AddStoreToList(string store)
         {
             string sqlConnectString = System.Configuration.ConfigurationManager.ConnectionStrings["myDB"].ConnectionString;
             //the only thing fancy about this query is SELECT LAST_INSERT_ID() at the end.  All that
             //does is tell mySql server to return the primary key of the last inserted row.
-            string sqlSelect = "insert into list (List, checked) " +
-                "values(@listvalue,'unchecked');";
+            string sqlSelect = "insert into stores (storeName) " +
+                "values(@storevalue);";
 
             MySqlConnection sqlConnection = new MySqlConnection(sqlConnectString);
             MySqlCommand sqlCommand = new MySqlCommand(sqlSelect, sqlConnection);
 
-            sqlCommand.Parameters.AddWithValue("@listvalue", HttpUtility.UrlDecode(item));
+            sqlCommand.Parameters.AddWithValue("@storevalue", HttpUtility.UrlDecode(store));
 
             //this time, we're not using a data adapter to fill a data table.  We're just
             //opening the connection, telling our command to "executescalar" which says basically
@@ -94,16 +93,16 @@ namespace Scrummer
 
         //EXAMPLE OF AN UPDATE QUERY WITH PARAMS PASSED IN
         [WebMethod(EnableSession = true)]
-        public void UpdateList(string id, string list)
+        public void UpdateStore(string id, string store)
         {
             string sqlConnectString = System.Configuration.ConfigurationManager.ConnectionStrings["myDB"].ConnectionString;
             //this is a simple update, with parameters to pass in values
-            string sqlSelect = "update list set List=@listValue where id=@idValue";
+            string sqlSelect = "update stores set storeName=@storeValue where id=@idValue";
 
             MySqlConnection sqlConnection = new MySqlConnection(sqlConnectString);
             MySqlCommand sqlCommand = new MySqlCommand(sqlSelect, sqlConnection);
 
-            sqlCommand.Parameters.AddWithValue("@listValue", HttpUtility.UrlDecode(list));
+            sqlCommand.Parameters.AddWithValue("@storeValue", HttpUtility.UrlDecode(store));
             sqlCommand.Parameters.AddWithValue("@idValue", HttpUtility.UrlDecode(id));
 
             sqlConnection.Open();
@@ -121,11 +120,11 @@ namespace Scrummer
 
         //EXAMPLE OF A DELETE QUERY
         [WebMethod(EnableSession = true)]
-        public void DeleteListItem(string id)
+        public void DeleteStore(string id)
         {
             string sqlConnectString = System.Configuration.ConfigurationManager.ConnectionStrings["myDB"].ConnectionString;
             //this is a simple update, with parameters to pass in values
-            string sqlSelect = "delete from list where id=@idValue";
+            string sqlSelect = "delete from stores where id=@idValue";
 
             MySqlConnection sqlConnection = new MySqlConnection(sqlConnectString);
             MySqlCommand sqlCommand = new MySqlCommand(sqlSelect, sqlConnection);
@@ -133,34 +132,6 @@ namespace Scrummer
             sqlCommand.Parameters.AddWithValue("@idValue", HttpUtility.UrlDecode(id));
 
             sqlConnection.Open();
-            try
-            {
-                sqlCommand.ExecuteNonQuery();
-            }
-            catch (Exception e)
-            {
-            }
-            sqlConnection.Close();
-        }
-
-
-        //EXAMPLE OF AN UPDATE QUERY WITH PARAMS PASSED IN
-        [WebMethod(EnableSession = true)]
-        public void UpdateCheckList(string id, string checkId)
-        {
-            string sqlConnectString = System.Configuration.ConfigurationManager.ConnectionStrings["myDB"].ConnectionString;
-            //this is a simple update, with parameters to pass in values
-            string sqlSelect = "update list set checked=@checkIdValue where id=@idValue";
-
-            MySqlConnection sqlConnection = new MySqlConnection(sqlConnectString);
-            MySqlCommand sqlCommand = new MySqlCommand(sqlSelect, sqlConnection);
-
-            sqlCommand.Parameters.AddWithValue("@checkIdValue", HttpUtility.UrlDecode(checkId));
-            sqlCommand.Parameters.AddWithValue("@idValue", HttpUtility.UrlDecode(id));
-
-            sqlConnection.Open();
-            //we're using a try/catch so that if the query errors out we can handle it gracefully
-            //by closing the connection and moving on
             try
             {
                 sqlCommand.ExecuteNonQuery();
