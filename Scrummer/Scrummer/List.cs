@@ -9,6 +9,7 @@ namespace Scrummer
     {
         public int id;
         public string list;
+        public string checkedId;
 
     }
 }

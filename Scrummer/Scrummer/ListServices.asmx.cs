@@ -49,6 +49,7 @@ namespace Scrummer
                 {
                     id = Convert.ToInt32(sqlDt.Rows[i]["Id"]),
                     list = sqlDt.Rows[i]["List"].ToString(),
+                    checkedId = sqlDt.Rows[i]["checked"].ToString(),
                 });
             }
             //convert the list of accounts to an array and return!
@@ -132,6 +133,34 @@ namespace Scrummer
             sqlCommand.Parameters.AddWithValue("@idValue", HttpUtility.UrlDecode(id));
 
             sqlConnection.Open();
+            try
+            {
+                sqlCommand.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+            }
+            sqlConnection.Close();
+        }
+
+
+        //EXAMPLE OF AN UPDATE QUERY WITH PARAMS PASSED IN
+        [WebMethod(EnableSession = true)]
+        public void UpdateCheckList(string id, string checkId)
+        {
+            string sqlConnectString = System.Configuration.ConfigurationManager.ConnectionStrings["myDB"].ConnectionString;
+            //this is a simple update, with parameters to pass in values
+            string sqlSelect = "update list set checked=@checkIdValue where id=@idValue";
+
+            MySqlConnection sqlConnection = new MySqlConnection(sqlConnectString);
+            MySqlCommand sqlCommand = new MySqlCommand(sqlSelect, sqlConnection);
+
+            sqlCommand.Parameters.AddWithValue("@checkIdValue", HttpUtility.UrlDecode(checkId));
+            sqlCommand.Parameters.AddWithValue("@idValue", HttpUtility.UrlDecode(id));
+
+            sqlConnection.Open();
+            //we're using a try/catch so that if the query errors out we can handle it gracefully
+            //by closing the connection and moving on
             try
             {
                 sqlCommand.ExecuteNonQuery();

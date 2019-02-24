@@ -352,3 +352,13 @@ li
 {
     cursor:                     pointer
 }
+
+.checked + .accountRow
+{
+    text-decoration: line-through;
+}
+
+input[type=checkbox] 
+{
+
+}

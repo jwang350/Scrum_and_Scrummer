@@ -445,16 +445,29 @@
                             //by using a  # followed by that element's id.
                             var acct;
 
-                            acct = "<li class='accountRow' id=" + listsArray[i].id + " onclick='currentItem(" + listsArray[i].id + ")'>" +
+                            acct = "<input type='checkbox' class='" + listsArray[i].checkedId + "' id='myCheck" + listsArray[i].id+ "' onclick=" +"\"CrossOutItem(" + listsArray[i].id + ",'" + listsArray[i].checkedId +"')"+"\">" +
+                                "<li class='accountRow' id=" + listsArray[i].id + " onclick='currentItem(" + listsArray[i].id + ")'>" +
                                 listsArray[i].list + "</li>"
 
-                            $("#listItemBox").append(
-                                //anything we throw at our panel in the form of text
-                                //will be added to the contents of that panel.  Here
-                                //we're putting together a div that holds info on the
-                                //account as well as an edit link if the user is an admin
-                                acct
-                            );
+                            var acctChecked;
+                            acctChecked = "<input type='checkbox' class='" + listsArray[i].checkedId + "' id='myCheck" + listsArray[i].id + "' onclick=" + "\"CrossOutItem(" + listsArray[i].id + ",'" + listsArray[i].checkedId + "')" + "\" checked>" +
+                                "<li class='accountRow' id=" + listsArray[i].id + " onclick='currentItem(" + listsArray[i].id + ")'>" +
+                                listsArray[i].list + "</li>"
+
+                            if (listsArray[i].checkedId == "unchecked") {
+                                $("#listItemBox").append(
+                                    //anything we throw at our panel in the form of text
+                                    //will be added to the contents of that panel.  Here
+                                    acct
+                                );
+                            } else {
+                                $("#listItemBox").append(
+                                    //anything we throw at our panel in the form of text
+                                    //will be added to the contents of that panel.  Here
+                                    acctChecked
+                                );
+                            }
+
                         }
                     }
                     //we're showing the account window, so let's track that...
@@ -546,6 +559,45 @@
             });
         }
 
+        var crossOutItemId;
+        var crossOutCheckedId;
+        // Saves selected item ID and outputs text content in txt input box. 
+        function CrossOutItem(id, checkedId) {
+            var className = "myCheck" + id.toString();
+            console.log(className);
+            var checkBox = document.getElementById(className);
+            crossOutItemId = id;
+            crossOutCheckedId = checkedId;
+            if (checkBox.checked == true) {
+                crossOutCheckedId = "checked";
+            } else {
+                crossOutCheckedId = "unchecked";
+            }
+            CrossOut();
+        }
+
+        //ajax to send the edits of an item to the server
+        function CrossOut() {
+            var webMethod = "ListServices.asmx/UpdateCheckList";
+            var parameters = "{\"id\":\"" + encodeURI(crossOutItemId) + "\",\"checkId\":\"" + encodeURI(crossOutCheckedId) + "\"}";
+
+            $.ajax({
+                type: "POST",
+                url: webMethod,
+                data: parameters,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+                    showPanel('listPanel');
+                    alert("Item successfully updated");
+                    LoadList();
+                },
+                error: function (e) {
+                    alert("boo...");
+                }
+            });
+        }
+
 
 
     </script>
@@ -554,7 +606,7 @@
 <body>
 
 	<div class="titleContainer">
-		<span>Account!</span>
+		<span>Grocery List</span>
 		<div id="menu" class="menu">
 			<a href="#" id="adminLink" onclick="adminClick()"></a> 
 			<a href="#" onclick="LogOff()">log off</a>
