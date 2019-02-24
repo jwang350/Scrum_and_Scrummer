@@ -598,6 +598,98 @@
             });
         }
 
+        // ---------------------------------------------------------------------- JS
+        function addUser() {
+
+            dontHide();
+            input = document.getElementById('AddUser').value;
+            document.getElementById('AddUser').value = "";
+            alert = document.getElementById('userAlert');
+
+            alert.append("The user with the email " + input + " has been added to the list!!");
+
+            setTimeout("doHide()", 5000);
+        }
+
+        function doHide() {
+            document.getElementById("userAlert").style.display = "none";
+        }
+
+        function dontHide() {
+            document.getElementById("userAlert").innerHTML = "";
+            document.getElementById("userAlert").style.display = "block";
+
+        }
+
+        var inputItemText = document.getElementById("txt"),			// The input box for the items
+            inputStoreText = document.getElementById("storeTxt"),	// The input box for the stored
+            items = [],												// Holds LI objects for the items
+            stores = [],											// Holds LI objects for the stores
+            currNode = null;										// Refers to whatever node has been clicked
+
+
+        // Called whaen adding a new list item
+        function addEvent(liNode, inputBox) {
+            liNode.onclick = function () {
+                currNode = this;
+                //console.log(currNode.innerHTML);
+                inputBox.value = liNode.firstChild.textContent;
+            };
+        }
+
+        function display(info, node) {
+            node.innerHTML = '';
+            for (var i = 0; i < info.length; i++) {
+                node.appendChild(info[i]);
+            }
+        }
+
+        function createCheckbox(node) {
+            var checkbox = document.createElement('input');
+            checkbox.type = 'checkbox';
+            checkbox.onclick = function () {
+                if (checkbox.checked) { node.classList.add("striked"); }
+                else { node.classList.remove("striked"); }
+                currNode = null;
+            }
+            return checkbox;
+        }
+
+        function createListNode(str) {
+            var listNode = document.createElement('LI');
+            listNode.appendChild(document.createTextNode(str));
+            return listNode;
+        }
+
+        function addLI(arr, inputBox) {
+            var node = document.createElement('DIV');
+            listNode = createListNode(inputBox.value);
+
+            if (arr != stores) {
+                checkBox = createCheckbox(listNode);
+                node.appendChild(checkBox);
+            }
+            addEvent(listNode, inputBox);
+            node.appendChild(listNode);
+
+            arr.push(node);
+            inputBox.value = "";
+        }
+
+        function editLI(arr, inputBox) {
+            currNode.firstChild.textContent = inputBox.value;
+            inputBox.value = "";
+            currNode = null;
+        }
+
+        function deleteLI(arr, inputBox) {
+            if (currNode != null) {
+                arr.splice(arr.indexOf(currNode), 1);
+                inputBox.value = "";
+                currNode = null;
+            }
+        }
+
 
 
     </script>
@@ -605,13 +697,14 @@
 
 <body>
 
-	<div class="titleContainer">
-		<span>Grocery List</span>
-		<div id="menu" class="menu">
-			<a href="#" id="adminLink" onclick="adminClick()"></a> 
-			<a href="#" onclick="LogOff()">log off</a>
-		</div>
-	</div>
+    <div class="titleContainer">
+        <span>Grocery List</span>
+        <div id="menu" class="menu">
+            <a href="#" id="adminLink" onclick="adminClick()"></a>
+            <a href="#" onclick="LogOff()">log off</a>
+        </div>
+    </div>
+
 
     <div class="contentContainer">
 
@@ -645,10 +738,17 @@
 
 
         <div id="listPanel" class="contentPanel">
-            <div class="listBox">         
-                <div class="left" >List</div>
-                
-                <div class="center">                
+            <div class="listBox">
+                <div class="addUserContainer">
+                    <span>Add User</span>
+                    <input type="text" id="AddUser">
+                    <button type="button" id="AddUserButton" onclick="addUser()">Add User</button>
+                    <p id=userAlert></p>
+                </div>
+                <div class="left">List</div>
+
+
+                <div class="center">
                     <input type="text" id="txt">
                     <!--<div class="itemContainer">-->
                     <table id="buttonTable" class="center">
@@ -660,73 +760,92 @@
                     </table>
                     <div id="listMain" class="center">
                         <ul class="listItemBox" id="listItemBox"></ul>
-                    </div>             
-            </div>       
-        </div>
+                    </div>
 
+                    <div id="storeTable" class="center">
+                        <input type="text" id="storeTxt">
+                    </div>
+                    <div class="storeContainer">
+                        <table id="storeButtonTable" class="center">
+                            <tr><td>Store</td></tr>
+                            <tr>
+                                <td><button id="addStoreButton" onclick="addLI(stores, inputStoreText); display(stores, document.getElementById('storeList'))">Add</button></td>
+                                <td><button onclick="editLI(stores, inputStoreText); display(stores, document.getElementById('storeList'))">Edit</button></td>
+                                <td><button onclick="deleteLI(stores, inputStoreText); display(stores, document.getElementById('storeList'))">Delete</button></td>
+                            </tr>
+                        </table>
 
-        <div id="requestsPanel" class="contentPanel">
-            <div class="left">Account requests</div>
-            <hr />
-            <div class="accountsBox" id="requestsBox">
-
-
+                        <div id="main" class="center">
+                            <ul id="storeList"></ul>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
 
-        <div id="newAccountPanel" class="contentPanel newAccountPanel">
-            <div class="newAccountBox">
-                <form onsubmit="CreateAccount($('#newLogonId').val(), $('#newLogonPassword').val(), $('#newLogonFName').val(), $('#newLogonLName').val(), $('#newLogonEmail').val()); return false;">
-                    <div id="logonLabel" class="left">REQUEST ACCOUNT</div>
-                    <div class="left">
-                        ID <input type="text" id="newLogonId" />
-                    </div>
-                    <div class="left">
-                        PASSWORD <input type="password" id="newLogonPassword" />
-                    </div>
-                    <div class="left">
-                        FIRST <input type="text" id="newLogonFName" />
-                    </div>
-                    <div class="left">
-                        LAST <input type="text" id="newLogonLName" />
-                    </div>
-                    <div class="left">
-                        EMAIL <input type="text" id="newLogonEmail" />
-                    </div>
-                    <div class="center">
-                        <button type="submit">CREATE</button>
-                    </div>
-                    <div><a href="#" onclick="showPanel('logonPanel')" class="tinyLink">...or login</a></div>
-                </form>
 
+            <div id="requestsPanel" class="contentPanel">
+                <div class="left">Account requests</div>
+                <hr />
+                <div class="accountsBox" id="requestsBox">
+
+
+                </div>
             </div>
-        </div>
 
-        <div id="editAccountPanel" class="contentPanel newAccountPanel">
-            <div class="newAccountBox">
-                <form onsubmit="EditAccount(); return false;">
-                    <div id="logonLabel" class="left">EDIT ACCOUNT</div>
-                    <div class="left">
-                        ID <input type="text" id="editLogonId" />
-                    </div>
-                    <div class="left">
-                        PASSWORD <input type="password" id="editLogonPassword" />
-                    </div>
-                    <div class="left">
-                        FIRST <input type="text" id="editLogonFName" />
-                    </div>
-                    <div class="left">
-                        LAST <input type="text" id="editLogonLName" />
-                    </div>
-                    <div class="left">
-                        EMAIL <input type="text" id="editLogonEmail" />
-                    </div>
-                    <div class="left">
-                        <button type="submit">SAVE</button>
-                    </div>
-                    <div><a href="#" onclick="DeactivateAccount()" class="tinyLink">...or deactivate</a></div>
-                </form>
+            <div id="newAccountPanel" class="contentPanel newAccountPanel">
+                <div class="newAccountBox">
+                    <form onsubmit="CreateAccount($('#newLogonId').val(), $('#newLogonPassword').val(), $('#newLogonFName').val(), $('#newLogonLName').val(), $('#newLogonEmail').val()); return false;">
+                        <div id="logonLabel" class="left">REQUEST ACCOUNT</div>
+                        <div class="left">
+                            ID <input type="text" id="newLogonId" />
+                        </div>
+                        <div class="left">
+                            PASSWORD <input type="password" id="newLogonPassword" />
+                        </div>
+                        <div class="left">
+                            FIRST <input type="text" id="newLogonFName" />
+                        </div>
+                        <div class="left">
+                            LAST <input type="text" id="newLogonLName" />
+                        </div>
+                        <div class="left">
+                            EMAIL <input type="text" id="newLogonEmail" />
+                        </div>
+                        <div class="center">
+                            <button type="submit">CREATE</button>
+                        </div>
+                        <div><a href="#" onclick="showPanel('logonPanel')" class="tinyLink">...or login</a></div>
+                    </form>
 
+                </div>
+            </div>
+
+            <div id="editAccountPanel" class="contentPanel newAccountPanel">
+                <div class="newAccountBox">
+                    <form onsubmit="EditAccount(); return false;">
+                        <div id="logonLabel" class="left">EDIT ACCOUNT</div>
+                        <div class="left">
+                            ID <input type="text" id="editLogonId" />
+                        </div>
+                        <div class="left">
+                            PASSWORD <input type="password" id="editLogonPassword" />
+                        </div>
+                        <div class="left">
+                            FIRST <input type="text" id="editLogonFName" />
+                        </div>
+                        <div class="left">
+                            LAST <input type="text" id="editLogonLName" />
+                        </div>
+                        <div class="left">
+                            EMAIL <input type="text" id="editLogonEmail" />
+                        </div>
+                        <div class="left">
+                            <button type="submit">SAVE</button>
+                        </div>
+                        <div><a href="#" onclick="DeactivateAccount()" class="tinyLink">...or deactivate</a></div>
+                    </form>
+
+                </div>
             </div>
         </div>
 
