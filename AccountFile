@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Test</title>
+	<nav>
+	<h6>Add User</h6>
+	<input type="text" id="AddUser">
+	<button type="button" id="AddUserButton" onclick="addUser()">Add User</button>
+	<p id=userAlert></p>
+</nav>
+</head>
+<body>
+
+	<script>
+	function addUser()
+		{
+			
+			dontHide();
+			input = document.getElementById('AddUser').value;
+			document.getElementById('AddUser').value = "";
+			alert = document.getElementById('userAlert');
+
+			alert.append("The user with the email " + input + " has been added to the list!!");
+
+			 setTimeout( "doHide()", 5000 ) ;
+		}
+
+	function doHide()
+		{
+    		document.getElementById("userAlert").style.display = "none" ;
+		}
+
+	function dontHide()
+		{
+			document.getElementById("userAlert").innerHTML = "";
+			document.getElementById("userAlert").style.display = "block" ;
+
+		}
+		
+
+	</script>
+		
+	
+</body>
+</html>
