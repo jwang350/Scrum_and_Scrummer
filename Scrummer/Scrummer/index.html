@@ -677,28 +677,26 @@
         <div id="newAccountPanel" class="contentPanel newAccountPanel">
             <div class="newAccountBox">
                 <form onsubmit="CreateAccount($('#newLogonId').val(), $('#newLogonPassword').val(), $('#newLogonFName').val(), $('#newLogonLName').val(), $('#newLogonEmail').val()); return false;">
-                    <div class="left">Request Account</div>
-                    <div><a href="#" onclick="showPanel('logonPanel')" class="tinyLink">...or log on</a></div>
-                    <hr />
-                    <div>
-                        ID: <input type="text" id="newLogonId" />
+                    <div id="logonLabel" class="left">REQUEST ACCOUNT</div>
+                    <div class="left">
+                        ID <input type="text" id="newLogonId" />
                     </div>
-                    <div>
-                        Pwd: <input type="password" id="newLogonPassword" />
+                    <div class="left">
+                        PASSWORD <input type="password" id="newLogonPassword" />
                     </div>
-                    <div>
-                        First: <input type="text" id="newLogonFName" />
+                    <div class="left">
+                        FIRST <input type="text" id="newLogonFName" />
                     </div>
-                    <div>
-                        Last: <input type="text" id="newLogonLName" />
+                    <div class="left">
+                        LAST <input type="text" id="newLogonLName" />
                     </div>
-                    <div>
-                        Email: <input type="text" id="newLogonEmail" />
+                    <div class="left">
+                        EMAIL <input type="text" id="newLogonEmail" />
                     </div>
-                    <hr />
-                    <div>
-                        <button type="submit">Go!</button>
+                    <div class="center">
+                        <button type="submit">CREATE</button>
                     </div>
+                    <div><a href="#" onclick="showPanel('logonPanel')" class="tinyLink">...or login</a></div>
                 </form>
 
             </div>
@@ -707,28 +705,26 @@
         <div id="editAccountPanel" class="contentPanel newAccountPanel">
             <div class="newAccountBox">
                 <form onsubmit="EditAccount(); return false;">
-                    <div class="left">Edit Account</div>
+                    <div id="logonLabel" class="left">EDIT ACCOUNT</div>
+                    <di class="center">
+                        ID <input type="text" id="editLogonId" />
+                    </div>
+                    <div class="center">
+                        PASSWORD <input type="password" id="editLogonPassword" />
+                    </div>
+                    <div class="center">
+                        FIRST <input type="text" id="editLogonFName" />
+                    </div>
+                    <div class="center">
+                        LAST <input type="text" id="editLogonLName" />
+                    </div>
+                    <div class="center">
+                        EMAIL <input type="text" id="editLogonEmail" />
+                    </div>
+                    <div class="center">
+                        <button type="submit">SAVE</button>
+                    </div>
                     <div><a href="#" onclick="DeactivateAccount()" class="tinyLink">...or deactivate</a></div>
-                    <hr />
-                    <div>
-                        ID: <input type="text" id="editLogonId" />
-                    </div>
-                    <div>
-                        Pwd: <input type="password" id="editLogonPassword" />
-                    </div>
-                    <div>
-                        First: <input type="text" id="editLogonFName" />
-                    </div>
-                    <div>
-                        Last: <input type="text" id="editLogonLName" />
-                    </div>
-                    <div>
-                        Email: <input type="text" id="editLogonEmail" />
-                    </div>
-                    <hr />
-                    <div>
-                        <button type="submit">Save</button>
-                    </div>
                 </form>
 
             </div>
