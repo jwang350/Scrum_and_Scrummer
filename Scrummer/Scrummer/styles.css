@@ -1,387 +1,336 @@
-html, body 
-{
-    display:                    flex;
-    flex-direction:             column;
-    justify-content:            center;
-    margin:                     auto;
-    width:                      100%;
-    padding:                    10px;
-    overflow:                   hidden;
-    font-family:                'Century Gothic';
-    background-color:           #3cb371;
+html, body {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	margin: auto;
+	width: 100%;
+	padding: 10px;
+	overflow: scroll;
+	font-family: 'Century Gothic';
+	background-color: #3cb371;
 }
 
-body 
-{
-    height:                     100%;
+body {
+	height: 100%;
 }
 
-.titleContainer 
-{
-    background-color:           white;
-    display:                    flex;
-    flex-direction:             row;
-    align-items:                center;
-    border:                     1px solid gray;
-    border-radius:              25px;
-    padding-left:               10px;
-    padding-right:              10px;
-    color:                      black;
+.titleContainer {
+	background-color: white;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	border: 1px solid gray;
+	border-radius: 25px;
+	padding-left: 10px;
+	padding-right: 10px;
+	color: black;
 }
 
-.menu 
-{
-    flex:                       1;
-    text-align:                 right;
-    color:                      #bbbbbb;
-    visibility:                 hidden;
+.menu {
+	flex: 1;
+	text-align: right;
+	color: #bbbbbb;
+	visibility: hidden;
 }
 
-.menu a 
-{
-    font-size:                  small;
-    color:                      #006600;
+	.menu a {
+		font-size: small;
+		color: #006600;
+	}
+
+.contentContainer {
+	flex: 1;
+	position: relative;
+	margin: 5px;
 }
 
-.contentContainer 
-{
-    flex:                       1;
-    position:                   relative;
-    margin:                     5px;
-}
-
-.contentPanel 
-{
-    position:                   absolute;
-    top:                        0px;
-    left:                       0px;
-    height:                     100%;
-    width:                      100%;
-    visibility:                 hidden;
-    flex:                       1;
-    /*border:                   1px solid gray;
+.contentPanel {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	height: 100%;
+	width: 100%;
+	visibility: hidden;
+	flex: 1;
+	/*border:                   1px solid gray;
     border-radius:              25px;*/
 }
 
-.logonPanel 
-{
-    text-align:                 center;
+.logonPanel {
+	text-align: center;
 }
 
-.listPanel 
-{
-    text-align: center;
+.listPanel {
+	text-align: center;
 }
 
-.accountsPanel 
-{
-    text-align:                 center;
+.accountsPanel {
+	text-align: center;
 }
 
-.logonBox 
-{
-    display:                    inline-block;
-    text-align:                 right;
-    background-color:           white;
-    height:                     70%;
-    margin:                     100px;
-    width:                      400px;
+.logonBox {
+	display: inline-block;
+	text-align: right;
+	background-color: white;
+	height: 500px;
+	margin: 100px;
+	width: 400px;
 }
 
-#logonLabel
-{
-    font-size:                  30px;
+#logonLabel {
+	font-size: 30px;
 }
 
-.logonBox div 
-{
-    padding:                    20px;
-    margin:                     15px;
+.logonBox div {
+	padding: 20px;
+	margin: 15px;
 }
 
-.logonBox input 
-{
-    width:                      100%;
-    border:                     0px;
-    display:                    flex;
-    flex-direction:             row;
-    align-items:                center;
-    height:                     30px;
-    font-size:                  15px;
-    background-color:           #f2f2f2;
-    padding:                    10px 20px;
+.logonBox input {
+	width: 100%;
+	border: 0px;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	height: 30px;
+	font-size: 15px;
+	background-color: #f2f2f2;
+	padding: 10px 20px;
 }
 
-.logonBox input:focus
-{
-    border:                     2px solid #555;
+	.logonBox input:focus {
+		border: 2px solid #555;
+	}
+
+.logonBox button {
+	width: 100%;
+	height: 30px;
+	background-color: #3cb371;
+	color: white;
+	font-size: 15px;
+	cursor: pointer;
+	border: 0px;
 }
 
-.logonBox button
-{
-    width:                      100%;
-    height:                     30px;
-    background-color:           #3cb371;
-    color:                      white;
-    font-size:                  15px;
-    cursor:                     pointer;
-    border:                     0px;
+.newAccountPanel {
+	text-align: center;
 }
 
-.newAccountPanel 
-{
-    text-align:                 center;
+.newAccountBox {
+	display: inline-block;
+	text-align: right;
+	background-color: white;
+	height: 600px;
+	margin: 80px;
+	width: 400px;
 }
 
-.newAccountBox 
-{
-    display:                    inline-block;
-    text-align:                 right;
-    background-color:           white;
-    height:                     80%;
-    margin:                     80px;
-    width:                      400px;
+	.newAccountBox div {
+		padding: 10px;
+		margin-top: 5px;
+		margin-left: 25px;
+		margin-right: 25px;
+	}
+
+	.newAccountBox input {
+		width: 100%;
+		border: 0px;
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		height: 30px;
+		font-size: 15px;
+		background-color: #f2f2f2;
+		padding: 10px 20px;
+	}
+
+		.newAccountBox input:focus {
+			border: 2px solid #555;
+		}
+
+	.newAccountBox button {
+		width: 100%;
+		height: 30px;
+		background-color: #3cb371;
+		color: white;
+		font-size: 15px;
+		cursor: pointer;
+		border: 0px;
+	}
+
+.accountsBox {
+	display: inline-block;
+	width: 100%;
 }
 
-.newAccountBox div 
-{
-    padding:                    10px;
-    margin-top:                 5px;
-    margin-left:                25px;
-    margin-right:               25px;
+	.accountsBox hr {
+		padding: 0px;
+		margin-left: auto;
+		margin-right: auto;
+		width: 40px;
+	}
+
+.accountRow {
+	margin-left: auto;
+	margin-right: auto;
+	width: 100%;
 }
 
-.newAccountBox input 
-{
-    width:                      100%;
-    border:                     0px;
-    display:                    flex;
-    flex-direction:             row;
-    align-items:                center;
-    height:                     30px;
-    font-size:                  15px;
-    background-color:           #f2f2f2;
-    padding:                    10px 20px;
+.chatPanel {
+	display: flex;
+	flex-direction: column;
 }
 
-.newAccountBox input:focus
-{
-    border:                     2px solid #555;
+.messagesPanel {
+	overflow-y: scroll;
+	margin-top: 20px;
+	flex: 1;
 }
 
-.newAccountBox button
-{
-    width:                      100%;
-    height:                     30px;
-    background-color:           #3cb371;
-    color:                      white;
-    font-size:                  15px;
-    cursor:                     pointer;
-    border:                     0px;
+.nameTag {
+	font-weight: bold;
+	font-size: small;
+	text-decoration: none;
+	color: black;
 }
 
-.accountsBox 
-{
-    display:                    inline-block;
-    width:                      100%;
+.msg {
+	margin-top: 5px;
 }
 
-.accountsBox hr 
-{
-    padding:                    0px;
-    margin-left:                auto;
-    margin-right:               auto;
-    width:                      40px;
+.chatInputPanel {
+	height: 40px;
+	margin-top: 10px;
+	border-top: 1px solid #bbbbbb;
+	border-left: none;
+	border-right: none;
+	border-bottom: none;
+	padding-left: 20px;
+	padding-right: 20px;
+	padding-bottom: 2px;
+	display: flex;
+	flex-direction: row;
 }
 
-.accountRow 
-{
-    margin-left:                auto;
-    margin-right:               auto;
-    width:                      100%;
+.chatInput {
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	border: none;
 }
 
-.chatPanel 
-{
-    display:                    flex;
-    flex-direction:             column;
+.tinyLink {
+	font-size: smaller;
+	text-decoration: none;
+	color: #a6a6a6;
 }
 
-.messagesPanel 
-{
-    overflow-y:                 scroll;
-    margin-top:                 20px;
-    flex:                       1;
+.noBoard {
+	height: 100%;
 }
 
-.nameTag 
-{
-    font-weight:                bold;
-    font-size:                  small;
-    text-decoration:            none;
-    color:                      black;
+.board {
+	height: 50%;
 }
 
-.msg 
-{
-    margin-top:                 5px;
+.sendButton {
+	margin-top: 7px;
+	width: 20px;
+	height: 20px;
 }
 
-.chatInputPanel 
-{
-    height:                     40px;
-    margin-top:                 10px;
-    border-top:                 1px solid #bbbbbb;
-    border-left:                none;
-    border-right:               none;
-    border-bottom:              none;
-    padding-left:               20px;
-    padding-right:              20px;
-    padding-bottom:             2px;
-    display:                    flex;
-    flex-direction:             row;
+.left {
+	text-align: left;
 }
 
-.chatInput 
-{
-    width:                      100%;
-    height:                     100%;
-    overflow:                   hidden;
-    border:                     none;
+.optionsTag {
+	float: right;
+	font-size: small;
+	color: blue;
 }
 
-.tinyLink 
-{
-    font-size:                  smaller;
-    text-decoration:            none;
-    color:                      #a6a6a6;
+#buttonTable {
+	top: 0px;
+	left: 0px;
+	height: 100%;
+	width: 100%;
 }
 
-.noBoard 
-{
-    height:                     100%;
+	#buttonTable button {
+		border: 1px solid gray;
+		border-radius: 25px;
+		background-color: white;
+		color: #3cb371;
+		margin: 4px 2px;
+		width: 100px;
+		height: 30px;
+		font-size: 15px;
+		cursor: pointer;
+	}
+
+		#buttonTable button:hover {
+			background-color: #006600;
+		}
+
+.center {
+	text-align: center;
 }
 
-.board 
-{
-    height:                     50%;
+.listBox {
+	display: inline-block;
+	height: 70%;
+	margin-left: 30%;
+	margin-right: 30%;
+	width: 40%;
 }
 
-.sendButton 
-{
-    margin-top:                 7px;
-    width:                      20px;
-    height:                     20px;
+	.listBox input[type=text] {
+		background-color: white;
+		flex-direction: row;
+		border: 1px solid gray;
+		border-radius: 25px;
+		padding-left: 10px;
+		padding-right: 10px;
+		width: 100%;
+		height: 30px;
+		font-size: 15px;
+		padding: 10px 20px;
+	}
+
+* {
+	box-sizing: border-box;
 }
 
-.left 
-{
-    text-align:                 left;
+ul {
+	/* removes bullets from list */
+	list-style-type: none;
+	padding: 30px;
+	margin: 10px;
+	display: inline-block;
 }
 
-.optionsTag 
-{
-    float:                      right;
-    font-size:                  small;
-    color:                      blue;
-}
+	ul li {
+		border: 1px solid #ddd;
+		margin-top: -1px;
+		background-color: #f6f6f6;
+		padding: 12px;
+		text-decoration: none;
+		color: black;
+		position: relative;
+		float: right;
+		cursor: pointer;
+	}
 
-#buttonTable
-{
-    top:                        0px;
-    left:                       0px;
-    height:                     100%;
-    width:                      100%;
-}
+		ul li:hover {
+			background-color: #eee;
+		}
 
-#buttonTable button 
+.checked + .accountRow 
 {
-    border:                     1px solid gray;
-    border-radius:              25px;
-    background-color:           white;
-    color:                      #3cb371;
-    margin:                     4px 2px;
-    width:                      100px;
-    height:                     30px;
-    font-size:                  15px;
-    cursor:                     pointer;
-}
-
-#buttonTable button:hover 
-{
-    background-color:           #006600;
-}
-
-.center 
-{
-    text-align:                 center;
-}
-
-.listBox
-{
-    display:                    inline-block;
-    height:                     70%;
-    margin-left:                30%;
-    margin-right:               30%;
-    width:                      40%;
-}
-
-.listBox input 
-{
-    background-color:           white;
-    flex-direction:             row;
-    border:                     1px solid gray;
-    border-radius:              25px;
-    padding-left:               10px;
-    padding-right:              10px;
-    width:                      100%;
-    height:                     30px;
-    font-size:                  15px;
-    padding:                    10px 20px;
-}
-
-* 
-{
-    box-sizing:                 border-box;
-}
-
-ul 
-{
-    /* removes bullets from list */
-    list-style-type:            none;
-    padding:                    0;
-    margin:                     0;
-}
-
-ul li 
-{
-    border:                     1px solid #ddd;
-    margin-top:                 -1px;
-    background-color:           #f6f6f6;
-    padding:                    12px;
-    text-decoration:            none;
-    color:                      black;
-    display:                    block;
-    position:                   relative;
-}
-
-ul li:hover 
-{
-    background-color:           #eee;
-}
-
-
-li 
-{
-    cursor:                     pointer
-}
-
-.checked + .accountRow
-{
-    text-decoration: line-through;
+	text-decoration: line-through;
 }
 
 input[type=checkbox] 
 {
-
+	float:left;
 }
