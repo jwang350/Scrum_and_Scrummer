@@ -249,14 +249,14 @@ body {
 	color: blue;
 }
 
-#buttonTable {
+#buttonTable, #storeButtonTable {
 	top: 0px;
 	left: 0px;
 	height: 100%;
 	width: 100%;
 }
 
-	#buttonTable button {
+	#buttonTable button, #AddUserButton, #storeButtonTable button{
 		border: 1px solid gray;
 		border-radius: 25px;
 		background-color: white;
@@ -268,9 +268,20 @@ body {
 		cursor: pointer;
 	}
 
-		#buttonTable button:hover {
+		#buttonTable button:hover, #AddUserButton:hover, #storeButtonTable button:hover {
 			background-color: #006600;
+			color: white;
 		}
+
+#AddUserButton
+{
+	float:right;
+	margin-right:35px;
+}
+
+.addUserContainer {
+	margin-bottom: 50px;
+}
 
 .center {
 	text-align: center;
