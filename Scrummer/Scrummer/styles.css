@@ -6,6 +6,7 @@ html, body {
 	width: 100%;
 	padding: 10px;
 	overflow: scroll;
+	overflow-x:hidden;
 	font-family: 'Century Gothic';
 	background-color: #3cb371;
 }
@@ -69,13 +70,16 @@ body {
 }
 
 #requestsPanel,#accountsPanel {
-	display: inline-block;
-	text-align: right;
 	background-color: white;
-	height: 50%;
-	margin: 10% 30%;
+	margin: 0% 30%;
 	width: 40%;
 }
+
+	#accountsPanel div, #requestsPanel div {
+		padding: 10px;
+		margin: 5px;
+	}
+
 
 .logonBox {
 	display: inline-block;
@@ -253,7 +257,7 @@ body {
 }
 
 .optionsTag {
-	float: right;
+	float:right;
 	font-size: small;
 	color: blue;
 }
